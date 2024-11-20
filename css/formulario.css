@@ -1,0 +1,63 @@
+.container-form {
+  width: 100%;
+  min-height: 400px;
+  margin-top: 20px;
+  border: 1px solid;
+  padding: 40px 20px;
+  background: #fff;
+}
+
+#cadastroForm,
+#editarForm {
+  max-width: 800px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: #f7f7f7;
+  border: 1px solid #c7c7c7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+#cadastroForm .campos-form,
+#editarForm .campos-form {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#cadastroForm .campos-form label,
+#editarForm .campos-form label {
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+#cadastroForm .campos-form input,
+#cadastroForm .campos-form textarea,
+#editarForm .campos-form input,
+#editarForm .campos-form textarea {
+  width: 100%;
+  padding: 8px;
+}
+
+#cadastroForm .campos-form textarea,
+#editarForm .campos-form textarea {
+  min-height: 100px;
+}
+
+#cadastroForm .campos-form.categoria-status,
+#editarForm .campos-form.categoria-status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  gap: 20px;
+}
+
+#cadastroForm .campos-form.categoria-status div,
+#editarForm .campos-form.categoria-status div {
+  width: 100%;
+}

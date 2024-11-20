@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Editar Produto - VKStore</title>
+</head>
+<body>
+
+  <div class="container-geral">
+    <header>
+      <a href="./" class="logo">
+        <img src="./images/logo-vkstore.png" alt="Logo VKStore">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="./" class="btn-principal">Listar Produtos</a></li>
+          <li><a href="./cadastro.html" class="btn-principal">Novo Produto</a></li>
+        </ul>
+      </nav>
+    </header>
+  
+    <main>
+      <div class="infos">
+        <div>
+          <h1>Editar Produto</h1>
+          <p class="nome-produto-editar">Produto: </p>
+        </div>
+        <div>
+          <p>Produtos: <span class="total-produtos">0</span>/<span class="maximo-produtos">0</span></p>
+        </div>
+      </div>
+
+      <div class="container-form">
+        <div class="feedback"></div>
+        
+        <div class="produto-editar-container">
+          <figure>
+            <img src="" alt="" id="img_produto">
+          </figure>
+          <form id="editarForm" enctype="multipart/form-data">
+  
+            <div class="campos-form">
+              <label for="name">Nome</label>
+              <input type="text" name="name" id="name">
+            </div>
+  
+            <div class="campos-form categoria-status">
+              <div>
+                <label for="price">Preço</label>
+                <input type="text" name="price" id="price">
+              </div>
+    
+              <div>
+                <label for="stock">Quantidade em Estoque</label>
+                <input type="text" name="stock" id="stock">
+              </div>
+            </div>
+  
+            <div class="campos-form categoria-status">
+              <!-- <div>
+                <label for="product_status">Ativo</label>
+                <input type="checkbox" name="product_status" id="product_status">
+              </div> -->
+              <div class="campos-form">
+                <label for="url_image">Imagem</label>
+                <input type="file" name="url_image" id="url_image" accept="image/*">
+              </div>
+              <div>
+                <label for="category_id">Categoria</label>
+                <select name="category_id" id="category_id">
+                  <option value="">Selecione uma Categoria</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="campos-form">
+              <label for="description">Descrição</label>
+              <textarea type="text" name="description" id="description"></textarea>
+            </div>
+  
+            <button type="submit" class="btn-principal">Editar</button>
+          </form>
+          
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>VKSTORE - Todos os Direitos Reservados</p>
+    </footer>
+  </div>
+
+  <div id="spinner-container">
+    <div class="spinner"></div>
+  </div>
+    
+  <script src="./main.js"></script>
+</body>
+</html>

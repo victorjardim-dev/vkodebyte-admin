@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>VKStore</title>
+</head>
+<body>
+
+  <div class="container-geral">
+    <header>
+      <a href="./" class="logo">
+        <img src="./images/logo-vkstore.png" alt="Logo VKStore">
+      </a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="./" class="btn-principal">Listar Produtos</a></li>
+          <li><a href="./cadastro.html" class="btn-principal">Novo Produto</a></li>
+        </ul>
+      </nav>
+    </header>
+  
+    <main>
+      <div class="infos">
+        <!-- <input type="text" name="pesquisar" id="pesquisar" placeholder="Procurar Produto"> -->
+        <h1>Lista de Produtos</h1>
+        <div>
+          <p>Produtos: <span class="total-produtos">0</span>/<span class="maximo-produtos">0</span></p>
+        </div>
+      </div>
+      <div class="feedback"></div>
+    </main>
+
+    <footer>
+      <p>VKSTORE - Todos os Direitos Reservados</p>
+    </footer>
+  </div>
+
+  <div id="spinner-container">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
