@@ -92,6 +92,28 @@ main {
   justify-content: space-between;
 }
 
+.feedback {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  padding-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.feedback span {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.feedback span.sucesso {
+  color: #28a745;
+}
+
+.feedback span.erro {
+  color: #dc3545;
+}
+
 footer {
   padding: 40px 0;
   text-align: center;
@@ -103,22 +125,7 @@ footer {
   align-items: center;
 }
 
-.feedback {
-  grid-column: 1 / -1;
-  padding-top: 12px;
-  padding-bottom: 20px;
-  text-align: center;
-  width: 100%;
-}
-
-.feedback span {
-  font-weight: 600;
-}
-
-.feedback span.sucesso {
-  color: #28a745;
-}
-
-.feedback span.erro {
-  color: #dc3545;
+footer a.btn-principal:hover {
+  background: #222;
+  color: #fff;
 }

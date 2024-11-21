@@ -5,6 +5,7 @@ import editarProduto from "./produtos/editar.js";
 import listarCategorias from "./listar-categorias.js";
 import zerarTabela from "./produtos/zerar-tabela.js";
 import pesquisar from "./produtos/pesquisar.js";
+import listarPedidos from "./pedidos/listar.js";
 
 // const BASE_URL_API = "http://104.234.63.58:3000";
 const BASE_URL_API = "http://localhost:3000";
@@ -46,6 +47,11 @@ if (window.location.pathname === "/editar.html") {
   } else {
     window.location.href = "./";
   }
+}
+
+if (window.location.pathname === "/pedidos.html") {
+  console.log(window.location.pathname);
+  listarPedidos(BASE_URL_API, feedbackEl, spinnerLoad);
 }
 
 setTimeout(() => {
