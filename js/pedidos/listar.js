@@ -1,5 +1,3 @@
-import listarCategorias from "../listar-categorias.js";
-
 const formatarData = (date) => new Date(date).toLocaleString().replace(", ", " às ");
 
 const criarPedidos = async (BASE_URL_API, produtos) => {  

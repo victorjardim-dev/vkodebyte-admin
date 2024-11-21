@@ -103,7 +103,7 @@ main {
 .feedback span {
   font-weight: 600;
   display: block;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
 }
 
 .feedback span.sucesso {
