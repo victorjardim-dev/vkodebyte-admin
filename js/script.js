@@ -117,13 +117,29 @@ setTimeout(() => {
 
 const btnZerar = document.querySelector(".zerar-tabela-produtos");
 if (btnZerar) {
-  btnZerar.addEventListener("click", (event) => {
+  btnZerar.addEventListener("click", async (event) => {
     event.preventDefault();
     const msg = `Deseja deletar todos os produtos?`;
     if (confirm(msg)) {
-      zerarTabela(BASE_URL_API);
-      alert("Produtos deletados com sucesso!");
+      try {
+        const delPrdo = await zerarTabela(BASE_URL_API);
+        const delError = delPrdo;
+
+        if (delError.error) {
+          throw delError;
+        }
+
+        alert(delPrdo.api_message);
+        // window.location.reload();
+        
+      } catch(err) {
+        if (err.error) {
+          alert(err.error[0] + "\n" + (err.error[1] || ""));
+        } else {
+          alert(err);
+        }
+      }
     }
-    window.location.reload();
+    spinnerLoad.classList.remove("ativo");
   });
 }
