@@ -12,15 +12,21 @@ const deletarProduto = async (BASE_URL_API, codigoProduto, index) => {
       })
     });
 
-
     const responseDate = await request.json();
 
-    console.log(responseDate);
+    if (responseDate.api_message_error) {
+      const objErro = new Object();
+      objErro.error = responseDate.api_message_error;
+      return objErro;
+    }
+
+    return responseDate;
+    
   } catch (err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
     }
-    console.log(err);
+    return err;
   }
 }
 

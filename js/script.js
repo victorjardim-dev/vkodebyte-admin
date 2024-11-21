@@ -3,6 +3,7 @@ import cadastrarProduto from "./produtos/criar.js";
 import deletarProduto from "./produtos/deletar.js";
 import editarProduto from "./produtos/editar.js";
 import listarCategorias from "./listar-categorias.js";
+import zerarTabela from "./produtos/zerar-tabela.js";
 import pesquisar from "./produtos/pesquisar.js";
 
 // const BASE_URL_API = "http://104.234.63.58:3000";
@@ -61,13 +62,28 @@ setTimeout(() => {
   const btnExcluir = document.querySelectorAll("button.excluir");
   if (btnExcluir) {
     btnExcluir.forEach((btn, index) => {
-      btn.addEventListener("click", (event) => {
+      btn.addEventListener("click", async (event) => {
         const codigo_produto = event.target.offsetParent.id;
         const msg = `Deseja deletar o produto?\nCódigo do produto: ${codigo_produto}`;
         if (confirm(msg)) {
-          deletarProduto(BASE_URL_API, codigo_produto, index);
-          alert("Produto deletado com sucesso!");
-          window.location.reload();
+          try {
+            const delPrdo = await deletarProduto(BASE_URL_API, codigo_produto, index);
+            const delError = delPrdo;
+
+            if (delError.error) {
+              throw delError;
+            }
+
+            alert("Produto deletado com sucesso!");
+            window.location.reload();
+            
+          } catch(err) {
+            if (err.error) {
+              alert(err.error[0] + "\n" + (err.error[1] || ""));
+            } else {
+              alert(err);
+            }
+          }
         }
       });
     });
@@ -92,3 +108,16 @@ setTimeout(() => {
     });
   });
 }, 500);
+
+const btnZerar = document.querySelector(".zerar-tabela-produtos");
+if (btnZerar) {
+  btnZerar.addEventListener("click", (event) => {
+    event.preventDefault();
+    const msg = `Deseja deletar todos os produtos?`;
+    if (confirm(msg)) {
+      zerarTabela(BASE_URL_API);
+      alert("Produtos deletados com sucesso!");
+    }
+    window.location.reload();
+  });
+}
