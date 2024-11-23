@@ -30,7 +30,6 @@ ul {
 
 button {
   display: inline-block;
-  margin-bottom: 12px;
   border: none;
   cursor: pointer;
 }
@@ -100,10 +99,9 @@ main {
   width: 100%;
 }
 
-.feedback span {
+.feedback > span {
   font-weight: 600;
   display: block;
-  /* margin-bottom: 8px; */
 }
 
 .feedback span.sucesso {

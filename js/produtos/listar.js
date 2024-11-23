@@ -8,7 +8,7 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
   const divPrincipal = document.createElement("div");
   divPrincipal.classList.add("container-produtos");
 
-  produtos.map(product => {
+  produtos.sort((a,b) => b.id-a.id).map(product => {
     divPrincipal.innerHTML += `
       <div class="produtos" id="${product.product_code}">
         <h2>${product.name}</h2>
@@ -16,7 +16,7 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
           <img src="${BASE_URL_API}/uploads/${product.url_image}" alt="${product.url_image ? product.name : ""}" />
           <figcaption>
             <span>Ref: <strong>${product.product_code}</strong></span>
-            <span>Preço: ${parseInt(product.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</span>
+            <span>Preço: <strong>${parseFloat(product.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</strong></span>
           </figcaption>
         </figure>
         <div class="produto-infos">
@@ -55,7 +55,9 @@ const listarProdutos = async (BASE_URL_API, maximoProdutos, totalProdutos, feedb
 
     const produtosEl = await criarProdutos(BASE_URL_API, products);
 
-    feedbackEl.appendChild(produtosEl);
+    if (window.location.pathname !== "/cadastro.html") {
+      feedbackEl.appendChild(produtosEl);
+    }
 
   } catch (err) {
     if (err.toString().includes("fetch")) {

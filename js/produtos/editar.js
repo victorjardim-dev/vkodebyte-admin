@@ -5,7 +5,6 @@ const editarProduto = async (BASE_URL_API, dadosFormulario, codigoProduto, feedb
       body: dadosFormulario
     });
     const responseDate = await request.json();
-    console.log(responseDate);
     
     if (!request.ok) {
       throw responseDate;

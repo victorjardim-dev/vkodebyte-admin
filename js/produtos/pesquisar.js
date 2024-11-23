@@ -9,7 +9,7 @@ const pesquisar = async (BASE_URL_API, id_produto, feedbackEl) => {
     await listarCategorias(BASE_URL_API, feedbackEl);
 
     if (nomeProduto) {
-      nomeProduto.innerHTML += dados.name + " - R$ " + parseInt(dados.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" });
+      nomeProduto.innerHTML += dados.name + " - " + parseFloat(dados.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" });
     }
 
     document.getElementById("img_produto").src = `${BASE_URL_API}/uploads/${dados.url_image}`;

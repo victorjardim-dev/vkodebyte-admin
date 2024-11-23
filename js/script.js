@@ -19,6 +19,7 @@ if (window.location.pathname === "/" || window.location.pathname === "/index.htm
 }
 
 if (window.location.pathname === "/cadastro.html") {
+  listarProdutos(BASE_URL_API, maximoProdutos, totalProdutos, feedbackEl, spinnerLoad);
   listarCategorias(BASE_URL_API, feedbackEl);
   const cadastroForm = document.querySelector("#cadastroForm");
 
@@ -143,3 +144,6 @@ if (btnZerar) {
     spinnerLoad.classList.remove("ativo");
   });
 }
+
+const anoAtual = document.getElementById("ano-atual");
+anoAtual.innerHTML = new Date().getFullYear();
