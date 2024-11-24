@@ -22,12 +22,15 @@ const auth = async (BASE_URL_API, spinnerLoad) => {
             throw responseData
           }
 
+          console.log("Autorizado.");
           maskContent.classList.remove("ativo");
 
+          return responseData;
+
         } catch (err) {
+          console.log(err);
           localStorage.removeItem("token");
-          aviso.innerHTML = err.api_message_error;
-          console.log(err.api_message_error);
+          aviso.innerHTML = err.api_message_error || "Seção Expirada";
         }
       }
     }

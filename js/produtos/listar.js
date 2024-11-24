@@ -29,6 +29,7 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
             <p>Valor Total: <strong>${ parseFloat(product.stock * product.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</strong></p>
             <p>Status: <strong class="${product.product_status ? "disponivel" : "indisponivel"}">${product.product_status ? "Disponível" : "Indisponível"}</strong></p>
             <p>Categoria: <strong>${categoriasProducts[product.category_id - 1].category_name}</strong></p>
+            <p>Criado por: <strong>${product.created_by}</strong></p>
             <p>Data de Registro: <strong>${formatarData(product.registration_date)}</strong></p>
             <p>Ultima Atualização: <strong>${product.update_date ? formatarData(product.update_date) : "-"}</strong></p>
           </div>

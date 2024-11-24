@@ -18,9 +18,14 @@ const totalProdutos = document.querySelector(".total-produtos");
 const spinnerLoad = document.querySelector("#spinner-container");
 
 import auth from "../js/admin/auth.js";
-if (window.location.pathname !== "/" || window.location.pathname !== "/index.html") {
+import verifyToken from "./admin/verifyToken.js";
+if (window.location.pathname !== "/" && window.location.pathname !== "/index.html") {
   auth(BASE_URL_API, spinnerLoad);
-  getTotalProducts(BASE_URL_API, maximoProdutos, totalProdutos);
+
+  // Verifica token em minutos
+  verifyToken(BASE_URL_API, 60);
+
+  getTotalProducts(BASE_URL_API, maximoProdutos, totalProdutos);  
 }
 
 if (window.location.pathname === "/listagem.html") {
@@ -168,7 +173,7 @@ links.forEach(link => {
         window.location.href = "/";
       }
     }
-    
+
     if (
       window.location.pathname === "/cadastro.html" ||
       window.location.pathname === "/pedidos.html" ||
@@ -180,7 +185,7 @@ links.forEach(link => {
         window.location.href = "/";
       }
     }
-    
+
     spinnerLoad.classList.add("ativo");
   });
 });
@@ -195,34 +200,34 @@ setTimeout(() => {
   });
 }, 500);
 
-const btnZerar = document.querySelector(".zerar-tabela-produtos");
-if (btnZerar) {
-  btnZerar.addEventListener("click", async (event) => {
-    event.preventDefault();
-    const msg = `Deseja deletar todos os produtos?`;
-    if (confirm(msg)) {
-      try {
-        const delPrdo = await zerarTabela(BASE_URL_API);
-        const delError = delPrdo;
+// const btnZerar = document.querySelector(".zerar-tabela-produtos");
+// if (btnZerar) {
+//   btnZerar.addEventListener("click", async (event) => {
+//     event.preventDefault();
+//     const msg = `Deseja deletar todos os produtos?`;
+//     if (confirm(msg)) {
+//       try {
+//         const delPrdo = await zerarTabela(BASE_URL_API);
+//         const delError = delPrdo;
 
-        if (delError.error) {
-          throw delError;
-        }
+//         if (delError.error) {
+//           throw delError;
+//         }
 
-        alert(delPrdo.api_message);
-        // window.location.reload();
+//         alert(delPrdo.api_message);
+//         // window.location.reload();
 
-      } catch (err) {
-        if (err.error) {
-          alert(err.error[0] + "\n" + (err.error[1] || ""));
-        } else {
-          alert(err);
-        }
-      }
-    }
-    spinnerLoad.classList.remove("ativo");
-  });
-}
+//       } catch (err) {
+//         if (err.error) {
+//           alert(err.error[0] + "\n" + (err.error[1] || ""));
+//         } else {
+//           alert(err);
+//         }
+//       }
+//     }
+//     spinnerLoad.classList.remove("ativo");
+//   });
+// }
 
 function hideFeedBack() {
   setTimeout(() => {
@@ -241,7 +246,6 @@ import dashPainel from "./admin/dashboard.js";
 const formLogin = document.getElementById("loginForm");
 const bntLogout = document.getElementById("btn-logout");
 
-
 if (formLogin) {
   formLogin.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -256,8 +260,8 @@ if (bntLogout) {
 
 if (window.location.pathname === "/painel.html") {
   async function formatarDataComHora(data) {
-    const meses = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-    
+    const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
     // const cidade = localAtual.city;
     const dia = data.getDate();
     const mes = meses[data.getMonth()];
@@ -265,7 +269,7 @@ if (window.location.pathname === "/painel.html") {
     const horas = String(data.getHours()).padStart(2, "0");
     const minutos = String(data.getMinutes()).padStart(2, "0");
     const segundos = String(data.getSeconds()).padStart(2, "0");
-    
+
     return `${dia} de ${mes} de ${ano} - ${horas}:${minutos}`;
   }
   const dataAtualSaudacao = document.querySelector(".dia-atual-saudacao");
