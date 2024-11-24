@@ -1,6 +1,6 @@
-const zerarTabela = async (BASE_URL_API) => {
+const deletarCategoria = async (BASE_URL_API, idCategoria) => {
   try {
-    const request = await fetch(BASE_URL_API + "/zerar-tabela-produtos", {
+    const request = await fetch(BASE_URL_API + "/categorias" + `/${idCategoria}`, {
       method: "DELETE"
     });
     const responseData = await request.json();
@@ -21,4 +21,4 @@ const zerarTabela = async (BASE_URL_API) => {
   }
 }
 
-export default zerarTabela;
+export default deletarCategoria;

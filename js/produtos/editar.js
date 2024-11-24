@@ -4,13 +4,13 @@ const editarProduto = async (BASE_URL_API, dadosFormulario, codigoProduto, feedb
       method: "PUT",
       body: dadosFormulario
     });
-    const responseDate = await request.json();
+    const responseData = await request.json();
     
     if (!request.ok) {
-      throw responseDate;
+      throw responseData;
     }
     
-    feedbackEl.innerHTML = "<span class='sucesso'>" + responseDate.api_message + "</span>";
+    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
     
   } catch (err) {
     if (err.toString().includes("fetch")) {

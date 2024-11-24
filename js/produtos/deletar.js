@@ -12,15 +12,15 @@ const deletarProduto = async (BASE_URL_API, codigoProduto, index) => {
       })
     });
 
-    const responseDate = await request.json();
+    const responseData = await request.json();
 
-    if (responseDate.api_message_error) {
+    if (responseData.api_message_error) {
       const objErro = new Object();
-      objErro.error = responseDate.api_message_error;
+      objErro.error = responseData.api_message_error;
       return objErro;
     }
 
-    return responseDate;
+    return responseData;
     
   } catch (err) {
     if (err.toString().includes("fetch")) {

@@ -8,7 +8,8 @@
 }
 
 #cadastroForm,
-#editarForm {
+#editarForm,
+#categoryForm {
   max-width: 800px;
   width: 100%;
   height: 100%;
@@ -23,15 +24,16 @@
 }
 
 #cadastroForm .campos-form,
-#editarForm .campos-form {
-  /* width: 100%; */
+#editarForm .campos-form,
+#categoryForm .campos-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 #cadastroForm .campos-form label,
-#editarForm .campos-form label {
+#editarForm .campos-form label,
+#categoryForm .campos-form label {
   margin-bottom: 4px;
   display: inline-block;
 }
@@ -39,7 +41,8 @@
 #cadastroForm .campos-form input,
 #cadastroForm .campos-form textarea,
 #editarForm .campos-form input,
-#editarForm .campos-form textarea {
+#editarForm .campos-form textarea,
+#categoryForm .campos-form input {
   width: 100%;
   padding: 8px;
 }

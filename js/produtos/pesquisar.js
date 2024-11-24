@@ -1,4 +1,4 @@
-import listarCategorias from "../listar-categorias.js";
+import listarCategorias from "../categorias/listar-categorias.js";
 
 const pesquisar = async (BASE_URL_API, id_produto, feedbackEl) => {
   const nomeProduto = document.querySelector(".nome-produto-editar");

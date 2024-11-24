@@ -1,4 +1,4 @@
-import listarCategorias from "../listar-categorias.js";
+import listarCategorias from "../categorias/listar-categorias.js";
 
 const formatarData = (date) => new Date(date).toLocaleString().replace(", ", " às ");
 
@@ -38,7 +38,7 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
   return divPrincipal;
 }
 
-const listarProdutos = async (BASE_URL_API, maximoProdutos, totalProdutos, feedbackEl, spinnerLoad) => {
+const listarProdutos = async (BASE_URL_API, feedbackEl, spinnerLoad) => {
   try {
     const request = await fetch(BASE_URL_API + "/produtos");
 
@@ -50,10 +50,7 @@ const listarProdutos = async (BASE_URL_API, maximoProdutos, totalProdutos, feedb
 
     const products = dataProdutos.products;
 
-    maximoProdutos.innerHTML = dataProdutos.allowed_max_products;
-    totalProdutos.innerHTML = dataProdutos.total_products;
-
-    const produtosEl = await criarProdutos(BASE_URL_API, products);
+    const produtosEl = await criarProdutos(BASE_URL_API, products, feedbackEl);
 
     if (window.location.pathname !== "/cadastro.html") {
       feedbackEl.appendChild(produtosEl);
@@ -66,7 +63,7 @@ const listarProdutos = async (BASE_URL_API, maximoProdutos, totalProdutos, feedb
     } else {
       feedbackEl.innerHTML = "<span>" + err.toString().replace("Error: ", "") + "</span>";
     }
-
+    console.log(err);
   }
   spinnerLoad.classList.remove("ativo");
 }

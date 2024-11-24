@@ -1,16 +1,26 @@
 const listarCategorias = async (BASE_URL_API, feedbackEl) => {
   try {
     const request = await fetch(BASE_URL_API + "/categorias");
-    const responseDate = await request.json();
+    const responseData = await request.json();
     
     const categoriaEl = document.getElementById("category_id");
+    const categoriasList = document.getElementById("lista-categorias-atual");
+
     if (categoriaEl) {
-      responseDate.map(categoria => {
+      responseData.map(categoria => {
         categoriaEl.innerHTML += `<option value="${categoria.id}">${categoria.category_name}</option>`;
       });
     }
+
+    if (categoriasList) {
+      categoriasList.innerHTML = "";
+      responseData.forEach(categoria => {
+        categoriasList.innerHTML += `<li><span>${categoria.category_name}</span> <span class="excluir-categoria" id="${categoria.id}">Excluir</span></li>`
+      });
+    }
   
-    return responseDate;
+    return responseData;
+    
   } catch(err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
