@@ -1,7 +1,12 @@
 const cadastrarProduto = async (BASE_URL_API, dadosFormulario, feedbackEl, spinnerLoad) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
     const request = await fetch(BASE_URL_API + "/produtos", {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      },
       body: dadosFormulario
     });
     const responseData = await request.json();

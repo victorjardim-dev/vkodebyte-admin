@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Painel - VKStore</title>
+</head>
+<body>
+
+  <div class="container-geral">
+    <header>
+      <a href="./" class="logo">
+        <img src="./images/logo-vkstore.png" alt="Logo VKStore">
+      </a>
+    </header>
+  
+    <main>
+      <div class="painel-container">
+        <h1 id="user-logado">-</h1>
+        <button id="btn-logout" class="btn-secundario">Deslogar</button>
+      </div>
+      <div class="acoes">
+
+        <div class="saudacao">
+          <h2>O que deseja fazer hoje?</h2>
+          <span class="dia-atual-saudacao"></span>
+        </div>
+
+        <ul>
+          <li><a href="./listagem.html" class="btn-principal">Listar Produtos</a></li>
+          <li><a href="./novo-usuario.html" class="btn-principal">Novo Usuário</a></li>
+          <li><a href="./cadastro.html" class="btn-principal">Novo Produto</a></li>
+          <li><a href="./pedidos.html" class="btn-principal">Ver Pedidos</a></li>
+          <li><a href="./categorias.html" class="btn-principal">Ver Categorias</a></li>
+        </ul>
+
+        <div class="resumo-container">
+          <h2>Resumo</h2>
+          <div>
+            <h3>Produtos</h3>
+          </div>
+        </div>
+
+      </div>
+      <div class="feedback"></div>
+    </main>
+
+    <footer>
+      <p>VKSTORE - Todos os Direitos Reservados <span id="ano-atual"></span></p>
+    </footer>
+  </div>
+
+  <div id="spinner-container">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="mask-content-token">
+    <p class="aviso"></p>
+    <a href="./" class="btn-principal">Voltar</a>
+  </div>
+
+  <script type="module" src="./js/script.js"></script>
+</body>
+</html>

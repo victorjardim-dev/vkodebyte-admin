@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/style.css">
+  <script>if ((window.location.pathname === "/" || window.location.pathname === "/index.html") && localStorage.getItem("token")) window.location.href = "/painel.html";</script>
   <title>VKStore</title>
 </head>
+
 <body>
 
   <div class="container-geral">
@@ -13,29 +16,27 @@
       <a href="./" class="logo">
         <img src="./images/logo-vkstore.png" alt="Logo VKStore">
       </a>
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="./cadastro.html" class="btn-principal">Novo Produto</a></li>
-          <li><a href="./pedidos.html" class="btn-principal">Pedidos</a></li>
-          <li><a href="./categorias.html" class="btn-principal">Categorias</a></li>
-        </ul>
-      </nav>
     </header>
-  
+
     <main>
-      <div class="infos">
-        <!-- <input type="text" name="pesquisar" id="pesquisar" placeholder="Procurar Produto"> -->
-        <h1>Lista de Produtos</h1>
-        <div>
-          <p>Produtos: <span class="total-produtos">0</span>/<span class="maximo-produtos">0</span></p>
-        </div>
+      <div class="container-form">
+        <div class="feedback"></div>
+        <form id="loginForm" method="POST">
+          <div class="campos-form">
+            <label for="username">Usuário</label>
+            <input type="text" name="username" id="username">
+          </div>
+          <div class="campos-form">
+            <label for="user_pass">Senha</label>
+            <input type="password" name="user_pass" id="user_pass">
+          </div>
+          <button type="submit" class="btn-principal">Acessar</button>
+        </form>
       </div>
-      <div class="feedback"></div>
     </main>
 
     <footer>
       <p>VKSTORE - Todos os Direitos Reservados <span id="ano-atual"></span></p>
-      <!-- <a href="#" class="btn-principal zerar-tabela-produtos">Zerar Tabela</a> -->
     </footer>
   </div>
 
@@ -45,4 +46,5 @@
 
   <script type="module" src="./js/script.js"></script>
 </body>
+
 </html>

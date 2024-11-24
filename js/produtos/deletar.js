@@ -1,10 +1,13 @@
 const deletarProduto = async (BASE_URL_API, codigoProduto, index) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
     const imagem = document.querySelectorAll(".produtos img");
 
     const request = await fetch(BASE_URL_API + "/produtos" + `/${codigoProduto}`, {
       method: "DELETE",
       headers: {
+        Authorization: `Bearer ${TOKEN}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({

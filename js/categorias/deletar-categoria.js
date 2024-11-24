@@ -1,7 +1,12 @@
 const deletarCategoria = async (BASE_URL_API, idCategoria) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
     const request = await fetch(BASE_URL_API + "/categorias" + `/${idCategoria}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
     });
     const responseData = await request.json();
 

@@ -1,8 +1,13 @@
 const editarProduto = async (BASE_URL_API, dadosFormulario, codigoProduto, feedbackEl, spinnerLoad) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
     const request = await fetch(BASE_URL_API + "/produtos" + `/${codigoProduto}`, {
       method: "PUT",
-      body: dadosFormulario
+      body: dadosFormulario,
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
     });
     const responseData = await request.json();
     

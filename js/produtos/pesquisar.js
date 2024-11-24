@@ -1,9 +1,15 @@
 import listarCategorias from "../categorias/listar-categorias.js";
 
 const pesquisar = async (BASE_URL_API, id_produto, feedbackEl) => {
+  const TOKEN = localStorage.getItem("token");
   const nomeProduto = document.querySelector(".nome-produto-editar");
+
   try {
-    const request = await fetch(BASE_URL_API + "/produtos" + `/${id_produto}`)
+    const request = await fetch(BASE_URL_API + "/produtos" + `/${id_produto}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
+    })
     const dados = await request.json();
     
     await listarCategorias(BASE_URL_API, feedbackEl);

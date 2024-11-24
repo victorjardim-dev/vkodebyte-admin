@@ -1,0 +1,23 @@
+.mask-content-token {
+  position: absolute;
+  z-index: 9999999;
+  left: 0;
+  top: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background: #fff;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.mask-content-token p {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.mask-content-token.ativo {
+  display: flex;
+}

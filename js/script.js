@@ -17,19 +17,23 @@ const maximoProdutos = document.querySelector(".maximo-produtos");
 const totalProdutos = document.querySelector(".total-produtos");
 const spinnerLoad = document.querySelector("#spinner-container");
 
-getTotalProducts(BASE_URL_API, maximoProdutos, totalProdutos);
+import auth from "../js/admin/auth.js";
+if (window.location.pathname !== "/" || window.location.pathname !== "/index.html") {
+  auth(BASE_URL_API, spinnerLoad);
+  getTotalProducts(BASE_URL_API, maximoProdutos, totalProdutos);
+}
 
-if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
+if (window.location.pathname === "/listagem.html") {
   listarProdutos(BASE_URL_API, feedbackEl, spinnerLoad);
 }
 
 if (window.location.pathname === "/cadastro.html") {
   listarCategorias(BASE_URL_API, feedbackEl);
   const cadastroForm = document.querySelector("#cadastroForm");
-  
+
   cadastroForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    
+
     const formData = new FormData(event.target);
     cadastrarProduto(BASE_URL_API, formData, feedbackEl, spinnerLoad);
   });
@@ -83,7 +87,7 @@ function activateFunctions() {
         });
       });
     }
-  
+
     const btnExcluir = document.querySelectorAll("button.excluir");
     if (btnExcluir) {
       btnExcluir.forEach((btn, index) => {
@@ -94,15 +98,15 @@ function activateFunctions() {
             try {
               const delPrdo = await deletarProduto(BASE_URL_API, codigo_produto, index);
               const delError = delPrdo;
-  
+
               if (delError.error) {
                 throw delError;
               }
-  
+
               alert("Produto deletado com sucesso!");
               window.location.reload();
-              
-            } catch(err) {
+
+            } catch (err) {
               if (err.error) {
                 alert(err.error[0] + "\n" + (err.error[1] || ""));
               } else {
@@ -113,7 +117,7 @@ function activateFunctions() {
         });
       });
     }
-  
+
     const btnExcluirCategoria = document.querySelectorAll(".excluir-categoria");
     if (btnExcluirCategoria.length > 0) {
       btnExcluirCategoria.forEach((btn) => {
@@ -124,16 +128,16 @@ function activateFunctions() {
             try {
               const delPrdo = await deletarCategoria(BASE_URL_API, codigo_produto);
               const delError = delPrdo;
-  
+
               if (delError.error) {
                 throw delError;
               }
-  
+
               alert(delError.api_message);
-              listarCategorias(BASE_URL_API);
+              listarCategorias(BASE_URL_API, feedbackEl);
               activateFunctions();
-              
-            } catch(err) {
+
+            } catch (err) {
               if (err.error) {
                 alert(err.error[0] + "\n" + (err.error[1] || ""));
               } else {
@@ -144,7 +148,7 @@ function activateFunctions() {
         });
       });
     }
-  
+
   }, 500);
 }
 
@@ -153,7 +157,30 @@ activateFunctions();
 // Ativar loadingSpinner nos links
 const links = document.querySelectorAll("a");
 links.forEach(link => {
-  link.addEventListener("click", () => {
+  link.addEventListener("click", (event) => {
+    const TOKEN = localStorage.getItem("token");
+
+    if (event.target.parentNode.pathname === "/" || event.target.parentNode.pathname === "/index.html") {
+      event.preventDefault();
+      if (TOKEN) {
+        window.location.href = "/painel.html";
+      } else {
+        window.location.href = "/";
+      }
+    }
+    
+    if (
+      window.location.pathname === "/cadastro.html" ||
+      window.location.pathname === "/pedidos.html" ||
+      window.location.pathname === "/categorias.html"
+    ) {
+      if (TOKEN) {
+        window.location.href = "/listagem.html";
+      } else {
+        window.location.href = "/";
+      }
+    }
+    
     spinnerLoad.classList.add("ativo");
   });
 });
@@ -184,8 +211,8 @@ if (btnZerar) {
 
         alert(delPrdo.api_message);
         // window.location.reload();
-        
-      } catch(err) {
+
+      } catch (err) {
         if (err.error) {
           alert(err.error[0] + "\n" + (err.error[1] || ""));
         } else {
@@ -200,8 +227,49 @@ if (btnZerar) {
 function hideFeedBack() {
   setTimeout(() => {
     feedbackEl.innerHTML = "";
-  }, 2000);
+  }, 3000);
 }
 
 const anoAtual = document.getElementById("ano-atual");
 anoAtual.innerHTML = new Date().getFullYear();
+
+// LOGIN
+import login from "./admin/login.js";
+import logout from "./admin/logout.js";
+import dashPainel from "./admin/dashboard.js";
+
+const formLogin = document.getElementById("loginForm");
+const bntLogout = document.getElementById("btn-logout");
+
+
+if (formLogin) {
+  formLogin.addEventListener("submit", (event) => {
+    event.preventDefault();
+    console.log("Logando...");
+    login(BASE_URL_API, feedbackEl, spinnerLoad);
+  });
+}
+
+if (bntLogout) {
+  bntLogout.addEventListener("click", logout);
+}
+
+if (window.location.pathname === "/painel.html") {
+  async function formatarDataComHora(data) {
+    const meses = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    
+    // const cidade = localAtual.city;
+    const dia = data.getDate();
+    const mes = meses[data.getMonth()];
+    const ano = data.getFullYear();
+    const horas = String(data.getHours()).padStart(2, "0");
+    const minutos = String(data.getMinutes()).padStart(2, "0");
+    const segundos = String(data.getSeconds()).padStart(2, "0");
+    
+    return `${dia} de ${mes} de ${ano} - ${horas}:${minutos}`;
+  }
+  const dataAtualSaudacao = document.querySelector(".dia-atual-saudacao");
+  dashPainel(BASE_URL_API);
+  dataAtualSaudacao.innerHTML = await formatarDataComHora(new Date());
+}
+// LOGIN

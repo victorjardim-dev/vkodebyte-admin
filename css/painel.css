@@ -1,0 +1,39 @@
+.painel-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.painel-container + .acoes {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  width: 100%;
+}
+
+.painel-container + .acoes .saudacao {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.painel-container + .acoes ul {
+  display: grid;
+  grid-row: 2;
+  gap: 12px;
+}
+
+.painel-container + .acoes li {
+  width: 100%;
+  transition: transform .3s;
+}
+
+.painel-container + .acoes a {
+  width: 100%;
+}
+
+.painel-container + .acoes li:hover {
+  transform: translate3d(8px, 0, 0);
+}

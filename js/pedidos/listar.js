@@ -25,8 +25,14 @@ const criarPedidos = async (BASE_URL_API, produtos) => {
 }
 
 const listarPedidos = async (BASE_URL_API, feedbackEl, spinnerLoad) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
-    const request = await fetch(BASE_URL_API + "/pedidos");
+    const request = await fetch(BASE_URL_API + "/pedidos", {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
+    });
 
     if (request.status === 204) {
       throw new Error("Não há pedidos.");

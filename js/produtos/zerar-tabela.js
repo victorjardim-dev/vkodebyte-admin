@@ -1,7 +1,12 @@
 const zerarTabela = async (BASE_URL_API) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
     const request = await fetch(BASE_URL_API + "/zerar-tabela-produtos", {
-      method: "DELETE"
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
     });
     const responseData = await request.json();
 

@@ -1,6 +1,12 @@
 const listarCategorias = async (BASE_URL_API, feedbackEl) => {
+  const TOKEN = localStorage.getItem("token");
+
   try {
-    const request = await fetch(BASE_URL_API + "/categorias");
+    const request = await fetch(BASE_URL_API + "/categorias", {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
+    });
     const responseData = await request.json();
     
     const categoriaEl = document.getElementById("category_id");
