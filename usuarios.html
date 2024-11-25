@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/style.css">
-  <title>Categorias - VKodeByte</title>
+  <title>Cadastrar Novo Usuário - VKodeByte</title>
 </head>
 <body>
 
@@ -28,7 +28,7 @@
     <main>
 
       <div class="infos">
-        <h1>Categorias</h1>
+        <h1>Cadastrar Novo Usuário</h1>
         <div>
           <p>Produtos: <span class="total-produtos">0</span>/<span class="maximo-produtos">0</span></p>
         </div>
@@ -40,13 +40,25 @@
         <ul id="lista-categorias-atual"></ul>
 
         <div class="nova-categoria">
-          <h2>Nova Categoria</h2>
-          <form method="POST" id="categoryForm">
+          <h2>Novo Usuário</h2>
+          <form method="POST" id="newUserForm">
             <div class="campos-form">
-              <label for="nome-categoria">Nome da categoria:</label>
-              <input type="text" name="nome-categoria" id="nome-categoria">
+              <label for="name">Nome:</label>
+              <input type="text" name="name" id="name">
             </div>
-            <button type="submit" class="btn-principal">Adicinar Categoria</button>
+            <div class="campos-form">
+              <label for="username">Usuário:</label>
+              <input type="text" name="username" id="username">
+            </div>
+            <div class="campos-form">
+              <label for="email">E-mail:</label>
+              <input type="email" name="email" id="email">
+            </div>
+            <div class="campos-form">
+              <label for="user_pass">Senha:</label>
+              <input type="password" name="user_pass" id="user_pass">
+            </div>
+            <button type="submit" class="btn-principal">Cadastrar Usuário</button>
           </form>
         </div>
 

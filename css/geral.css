@@ -4,18 +4,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Archivo Regular", 'Arial Narrow', Arial, sans-serif;
 }
 
 body {
   min-height: 100dvh;
   color: #2C2C2C;
   background: #f7f7f7;
-  font-family: "Archivo Regular", 'Arial Narrow', Arial, sans-serif;
 }
 
 header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
   align-items: center;
   padding-top: 40px;
 }
@@ -63,6 +65,7 @@ main {
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -79,7 +82,7 @@ main {
   letter-spacing: 1px;
   padding: 8px 12px;
   cursor: pointer;
-  transition: .3s background;
+  transition: .3s background, transform .3s;
 }
 
 .btn-secundario {
@@ -89,6 +92,8 @@ main {
 .btn-principal:hover {
   background: #76d;
   color: #fff;
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 2px 2px 4px 0 #c7c7c7;
 }
 
 .btn-secundario:hover {
@@ -99,6 +104,11 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.infos p {
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 .feedback {
@@ -137,4 +147,17 @@ footer {
 footer a.btn-principal:hover {
   background: #222;
   color: #fff;
+}
+
+.btn-acoes {
+  flex: 0 1 auto;
+  border: 1px solid #c7c7c7;
+  font-size: 14px;
+  line-height: 1;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.btn-acoes:hover {
+  background: #c7c7c7;
 }

@@ -21,7 +21,7 @@ const listarCategorias = async (BASE_URL_API, feedbackEl) => {
     if (categoriasList) {
       categoriasList.innerHTML = "";
       responseData.forEach(categoria => {
-        categoriasList.innerHTML += `<li><span>${categoria.category_name}</span> <span class="excluir-categoria" id="${categoria.id}">Excluir</span></li>`
+        categoriasList.innerHTML += `<li><span>${categoria.category_name}</span> <span class="btn-acoes excluir-categoria" id="${categoria.id}">Excluir</span></li>`
       });
     }
   

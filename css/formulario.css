@@ -10,7 +10,8 @@
 #cadastroForm,
 #editarForm,
 #categoryForm,
-#loginForm {
+#loginForm,
+#newUserForm {
   max-width: 800px;
   width: 100%;
   height: 100%;
@@ -28,10 +29,15 @@
   max-width: 400px;
 }
 
+#newUserForm {
+  height: auto;
+}
+
 #cadastroForm .campos-form,
 #editarForm .campos-form,
 #categoryForm .campos-form,
-#loginForm .campos-form {
+#loginForm .campos-form,
+#newUserForm .campos-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,7 +46,8 @@
 #cadastroForm .campos-form label,
 #editarForm .campos-form label,
 #categoryForm .campos-form label,
-#loginForm .campos-form label {
+#loginForm .campos-form label,
+#newUserForm .campos-form label {
   margin-bottom: 4px;
   display: inline-block;
 }
@@ -50,7 +57,8 @@
 #editarForm .campos-form input,
 #editarForm .campos-form textarea,
 #categoryForm .campos-form input,
-#loginForm .campos-form input {
+#loginForm .campos-form input,
+#newUserForm .campos-form input {
   width: 100%;
   padding: 8px;
 }

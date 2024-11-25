@@ -5,6 +5,8 @@ import editarProduto from "./produtos/editar.js";
 import listarCategorias from "./categorias/listar-categorias.js";
 import newCategory from "./categorias/criar-categoria.js";
 import deletarCategoria from "./categorias/deletar-categoria.js";
+import newUser from "./admin/newUser.js";
+import listarUsuarios from "./admin/listarUsuarios.js";
 import zerarTabela from "./produtos/zerar-tabela.js";
 import pesquisar from "./produtos/pesquisar.js";
 import listarPedidos from "./pedidos/listar.js";
@@ -73,6 +75,22 @@ if (window.location.pathname === "/editar.html") {
     });
   } else {
     window.location.href = "./";
+  }
+}
+
+if (window.location.pathname === "/usuarios.html") {
+  listarUsuarios(BASE_URL_API, feedbackEl);
+  const newUserForm = document.querySelector("#newUserForm");
+  if (newUserForm) {
+    newUserForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const newUserData = event.target;
+
+      newUser(BASE_URL_API, newUserData, feedbackEl, spinnerLoad);
+      activateFunctions();
+      hideFeedBack();
+    });
   }
 }
 
@@ -178,6 +196,7 @@ links.forEach(link => {
     if (
       window.location.pathname === "/cadastro.html" ||
       window.location.pathname === "/pedidos.html" ||
+      window.location.pathname === "/usuarios.html" ||
       window.location.pathname === "/editar.html" ||
       window.location.pathname === "/categorias.html"
     ) {
