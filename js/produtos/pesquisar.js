@@ -7,7 +7,7 @@ const pesquisar = async (BASE_URL_API, id_produto, feedbackEl) => {
   try {
     const request = await fetch(BASE_URL_API + "/produtos" + `/${id_produto}`, {
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       }
     })
     const dados = await request.json();

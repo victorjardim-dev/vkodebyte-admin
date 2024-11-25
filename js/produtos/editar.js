@@ -6,7 +6,7 @@ const editarProduto = async (BASE_URL_API, dadosFormulario, codigoProduto, feedb
       method: "PUT",
       body: dadosFormulario,
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       }
     });
     const responseData = await request.json();

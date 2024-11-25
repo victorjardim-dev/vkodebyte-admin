@@ -5,7 +5,7 @@ const cadastrarProduto = async (BASE_URL_API, dadosFormulario, feedbackEl, spinn
     const request = await fetch(BASE_URL_API + "/produtos", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       },
       body: dadosFormulario
     });
@@ -18,11 +18,16 @@ const cadastrarProduto = async (BASE_URL_API, dadosFormulario, feedbackEl, spinn
     feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
 
   } catch (err) {
-    if (err.toString().includes("fetch")) {
-      err = "Não foi possível se conectar ao servidor.";
-      feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+    if (Array.isArray(err.api_message_error.errors)) {
+      const errArr = err.api_message_error.errors;
+      feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] || "" + "</span>";
     } else {
-      feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+      if (err.toString().includes("fetch")) {
+        err = "Não foi possível se conectar ao servidor.";
+        feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+      } else {
+        feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+      }
     }
   }
   spinnerLoad.classList.remove("ativo");

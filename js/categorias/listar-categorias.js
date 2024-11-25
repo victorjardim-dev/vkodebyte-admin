@@ -4,7 +4,7 @@ const listarCategorias = async (BASE_URL_API, feedbackEl) => {
   try {
     const request = await fetch(BASE_URL_API + "/categorias", {
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       }
     });
     const responseData = await request.json();

@@ -7,7 +7,7 @@ const deletarProduto = async (BASE_URL_API, codigoProduto, index) => {
     const request = await fetch(BASE_URL_API + "/produtos" + `/${codigoProduto}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        "auth-api-token": `Bearer ${TOKEN}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({

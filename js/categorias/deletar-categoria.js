@@ -5,7 +5,7 @@ const deletarCategoria = async (BASE_URL_API, idCategoria) => {
     const request = await fetch(BASE_URL_API + "/categorias" + `/${idCategoria}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       }
     });
     const responseData = await request.json();

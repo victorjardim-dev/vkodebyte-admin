@@ -3,7 +3,7 @@ const getTotalProducts = async (BASE_URL_API, maximoProdutos, totalProdutos,) =>
 
   const request = await fetch(BASE_URL_API + "/produtos", {
     headers: {
-      Authorization: `Bearer ${TOKEN}`
+      "auth-api-token": `Bearer ${TOKEN}`
     }
   });
   

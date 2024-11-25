@@ -5,7 +5,7 @@ const zerarTabela = async (BASE_URL_API) => {
     const request = await fetch(BASE_URL_API + "/zerar-tabela-produtos", {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       }
     });
     const responseData = await request.json();

@@ -30,7 +30,7 @@ const listarPedidos = async (BASE_URL_API, feedbackEl, spinnerLoad) => {
   try {
     const request = await fetch(BASE_URL_API + "/pedidos", {
       headers: {
-        Authorization: `Bearer ${TOKEN}`
+        "auth-api-token": `Bearer ${TOKEN}`
       }
     });
 

@@ -7,7 +7,7 @@ const newCategory = async (BASE_URL_API, dados, feedbackEl, spinnerLoad) => {
     const request = await fetch(BASE_URL_API + "/categorias", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        "auth-api-token": `Bearer ${TOKEN}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify( {category_name: dados.value} )

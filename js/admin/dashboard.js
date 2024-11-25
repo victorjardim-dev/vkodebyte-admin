@@ -4,7 +4,7 @@ const dashPainel = async(BASE_URL_API) => {
 
   try {
     const request = await fetch(BASE_URL_API + "/admin/painel", {
-      headers: { Authorization: `Bearer ${TOKEN}` },
+      headers: { "auth-api-token": `Bearer ${TOKEN}` },
     });
     const responseData = await request.json();
 
