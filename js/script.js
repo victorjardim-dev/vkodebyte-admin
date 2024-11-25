@@ -137,16 +137,17 @@ function activateFunctions() {
               if (delError.error) {
                 throw delError;
               }
-
-              alert(delError.api_message);
+              
+              feedbackEl.innerHTML = "<span class='sucesso'>" + delError.api_message + "</span>";
               listarCategorias(BASE_URL_API, feedbackEl);
               activateFunctions();
 
             } catch (err) {
-              if (err.error) {
-                alert(err.error[0] + "\n" + (err.error[1] || ""));
+              if (Array.isArray(err.error)) {
+                const errArr = err.error;
+                feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] + "</span>";
               } else {
-                alert(err);
+                feedbackEl.innerHTML = "<span class='erro'>" + err.error + "</span>";
               }
             }
           }
@@ -230,9 +231,9 @@ setTimeout(() => {
 // }
 
 function hideFeedBack() {
-  setTimeout(() => {
-    feedbackEl.innerHTML = "";
-  }, 3000);
+  // setTimeout(() => {
+  //   feedbackEl.innerHTML = "";
+  // }, 3000);
 }
 
 const anoAtual = document.getElementById("ano-atual");

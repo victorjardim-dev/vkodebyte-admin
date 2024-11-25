@@ -25,8 +25,13 @@ const newCategory = async (BASE_URL_API, dados, feedbackEl, spinnerLoad) => {
     listarCategorias(BASE_URL_API, feedbackEl);
     
 
-  } catch (err) {
-    feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+  } catch (err) {    
+    if (Array.isArray(err.api_message_error)) {
+      const errArr = err.api_message_error;
+      feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] + "</span>";
+    } else {
+      feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+    }
   }
   spinnerLoad.classList.remove("ativo");
 }

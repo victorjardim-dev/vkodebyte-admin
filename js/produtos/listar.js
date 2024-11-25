@@ -4,16 +4,19 @@ const formatarData = (date) => new Date(date).toLocaleString().replace(", ", " �
 
 const criarProdutos = async (BASE_URL_API, produtos) => {
   try {
-    const categoriasProducts = await listarCategorias(BASE_URL_API);
+    const categoriesProducts = await listarCategorias(BASE_URL_API);
 
-    if ( categoriasProducts.api_message_error ) {
-      throw categoriasProducts;
+    if ( categoriesProducts.api_message_error ) {
+      throw categoriesProducts;
     }
 
+    
     const divPrincipal = document.createElement("div");
     divPrincipal.classList.add("container-produtos");
-  
+    
     produtos.sort((a,b) => b.id-a.id).map(product => {
+      const categoryName = categoriesProducts.filter((category) => category.id === product.category_id);
+
       divPrincipal.innerHTML += `
         <div class="produtos" id="${product.product_code}">
           <h2>${product.name}</h2>
@@ -28,7 +31,7 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
             <p>Estoque: <strong>${product.stock}</strong></p>
             <p>Valor Total: <strong>${ parseFloat(product.stock * product.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</strong></p>
             <p>Status: <strong class="${product.product_status ? "disponivel" : "indisponivel"}">${product.product_status ? "Disponível" : "Indisponível"}</strong></p>
-            <p>Categoria: <strong>${categoriasProducts[product.category_id - 1].category_name}</strong></p>
+            <p>Categoria: <strong>${categoryName[0].category_name}</strong></p>
             <p>Criado por: <strong>${product.created_by}</strong></p>
             <p>Data de Registro: <strong>${formatarData(product.registration_date)}</strong></p>
             <p>Ultima Atualização: <strong>${product.update_date ? formatarData(product.update_date) : "-"}</strong></p>

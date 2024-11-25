@@ -19,14 +19,19 @@ const login = async (BASE_URL_API, feedbackEl, spinnerLoad) => {
     if (!request.ok) throw responseData;
 
     localStorage.setItem("token", responseData.token);
-    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
+    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "<br>Redirecionando para o painel...</span>";
 
     setTimeout(() => {
       window.location.href = "painel.html";
     }, 1000);
     
   } catch (err) {
-    feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+    if (err.toString().includes("fetch")) {
+      err = "Não foi possível se conectar ao servidor.";
+      feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+    } else {
+      feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+    }
   }
   spinnerLoad.classList.remove("ativo");
 }
