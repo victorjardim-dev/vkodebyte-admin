@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Archivo Regular";
+  src: url("./archivo/archivo-regular.ttf");
+}
+
+@font-face {
+  font-family: "AudioWide Regular";
+  src: url("./audiowide/audiowide-regular.ttf");
+}

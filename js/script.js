@@ -178,6 +178,7 @@ links.forEach(link => {
     if (
       window.location.pathname === "/cadastro.html" ||
       window.location.pathname === "/pedidos.html" ||
+      window.location.pathname === "/editar.html" ||
       window.location.pathname === "/categorias.html"
     ) {
       if (TOKEN) {

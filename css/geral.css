@@ -1,3 +1,5 @@
+@import url("./fonts/fonts.css");
+
 * {
   margin: 0;
   padding: 0;
@@ -6,9 +8,9 @@
 
 body {
   min-height: 100dvh;
-  color: #222;
+  color: #2C2C2C;
   background: #f7f7f7;
-  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-family: "Archivo Regular", 'Arial Narrow', Arial, sans-serif;
 }
 
 header {
@@ -61,6 +63,10 @@ main {
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+}
+
+.logo {
+  max-width: 200px;
 }
 
 .btn-principal,
