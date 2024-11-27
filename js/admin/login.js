@@ -1,22 +1,15 @@
-const login = async (BASE_URL_API, feedbackEl, spinnerLoad) => {
-  const usr = document.getElementById("username").value;
-  const pwd = document.getElementById("user_pass").value;
+import vkGetFetch from "../vkGetFetch.js";
+
+const login = async (formLogin, feedbackEl, spinnerLoad) => {
+  const objLogin = {
+    username: formLogin.username.value,
+    user_pass: formLogin.user_pass.value
+  }
 
   try {
-    const request = await fetch(BASE_URL_API + "/admin/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: usr,
-        user_pass: pwd
-      })
-    });
+    const responseData = await vkGetFetch("/admin/login", "post", objLogin);
 
-    const responseData = await request.json();
-
-    if (!request.ok) throw responseData;
+    if (responseData.api_message_error) throw responseData;
 
     localStorage.setItem("token", responseData.token);
     feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "<br>Redirecionando para o painel...</span>";

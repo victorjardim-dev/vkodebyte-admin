@@ -1,3 +1,12 @@
+import admin from "./admin/index.js";
+import listOrders from "./pedidos/listar-pedidos.js";
+
+
+const feedbackEl = document.querySelector(".feedback");
+const maximoProdutos = document.querySelector(".maximo-produtos");
+const totalProdutos = document.querySelector(".total-produtos");
+const spinnerLoad = document.querySelector("#spinner-container");
+
 import listarProdutos from "./produtos/listar.js";
 import cadastrarProduto from "./produtos/criar.js";
 import deletarProduto from "./produtos/deletar.js";
@@ -9,15 +18,11 @@ import newUser from "./admin/newUser.js";
 import listarUsuarios from "./admin/listarUsuarios.js";
 import zerarTabela from "./produtos/zerar-tabela.js";
 import pesquisar from "./produtos/pesquisar.js";
-import listarPedidos from "./pedidos/listar.js";
 import getTotalProducts from "./produtos/total.js";
 
 // const BASE_URL_API = "http://104.234.63.58:3000";
 const BASE_URL_API = "http://localhost:3000";
-const feedbackEl = document.querySelector(".feedback");
-const maximoProdutos = document.querySelector(".maximo-produtos");
-const totalProdutos = document.querySelector(".total-produtos");
-const spinnerLoad = document.querySelector("#spinner-container");
+
 
 import auth from "../js/admin/auth.js";
 import verifyToken from "./admin/verifyToken.js";
@@ -53,7 +58,7 @@ if (window.location.pathname === "/categorias.html") {
     categoryForm.addEventListener("submit", (event) => {
       event.preventDefault();
       newCategory(BASE_URL_API, categoryForm[0], feedbackEl, spinnerLoad);
-      activateFunctions();
+      activateBtnsActions();
       hideFeedBack();
     });
   }
@@ -88,18 +93,13 @@ if (window.location.pathname === "/usuarios.html") {
       const newUserData = event.target;
 
       newUser(BASE_URL_API, newUserData, feedbackEl, spinnerLoad);
-      activateFunctions();
+      activateBtnsActions();
       hideFeedBack();
     });
   }
 }
 
-if (window.location.pathname === "/pedidos.html") {
-  console.log(window.location.pathname);
-  listarPedidos(BASE_URL_API, feedbackEl, spinnerLoad);
-}
-
-function activateFunctions() {
+function activateBtnsActions() {
   setTimeout(() => {
     const btnRedirectEditar = document.querySelectorAll("button.editar");
     if (btnRedirectEditar) {
@@ -158,7 +158,7 @@ function activateFunctions() {
               
               feedbackEl.innerHTML = "<span class='sucesso'>" + delError.api_message + "</span>";
               listarCategorias(BASE_URL_API, feedbackEl);
-              activateFunctions();
+              activateBtnsActions();
 
             } catch (err) {
               if (Array.isArray(err.error)) {
@@ -176,7 +176,7 @@ function activateFunctions() {
   }, 500);
 }
 
-activateFunctions();
+activateBtnsActions();
 
 // Ativar loadingSpinner nos links
 const links = document.querySelectorAll("a");
@@ -259,42 +259,10 @@ function hideFeedBack() {
 const anoAtual = document.getElementById("ano-atual");
 anoAtual.innerHTML = new Date().getFullYear();
 
-// LOGIN
-import login from "./admin/login.js";
-import logout from "./admin/logout.js";
-import dashPainel from "./admin/dashboard.js";
+// Inicia Admin
+admin(feedbackEl, spinnerLoad);
 
-const formLogin = document.getElementById("loginForm");
-const bntLogout = document.getElementById("btn-logout");
-
-if (formLogin) {
-  formLogin.addEventListener("submit", (event) => {
-    event.preventDefault();
-    console.log("Logando...");
-    login(BASE_URL_API, feedbackEl, spinnerLoad);
-  });
+// Lista pedidos
+if (window.location.pathname === "/pedidos.html") {
+  listOrders(feedbackEl, spinnerLoad);
 }
-
-if (bntLogout) {
-  bntLogout.addEventListener("click", logout);
-}
-
-if (window.location.pathname === "/painel.html") {
-  async function formatarDataComHora(data) {
-    const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-    // const cidade = localAtual.city;
-    const dia = data.getDate();
-    const mes = meses[data.getMonth()];
-    const ano = data.getFullYear();
-    const horas = String(data.getHours()).padStart(2, "0");
-    const minutos = String(data.getMinutes()).padStart(2, "0");
-    const segundos = String(data.getSeconds()).padStart(2, "0");
-
-    return `${dia} de ${mes} de ${ano} - ${horas}:${minutos}`;
-  }
-  const dataAtualSaudacao = document.querySelector(".dia-atual-saudacao");
-  dashPainel(BASE_URL_API);
-  dataAtualSaudacao.innerHTML = await formatarDataComHora(new Date());
-}
-// LOGIN
