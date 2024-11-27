@@ -9,6 +9,8 @@ const login = async (formLogin, feedbackEl, spinnerLoad) => {
   try {
     const responseData = await vkGetFetch("/admin/login", "post", objLogin);
 
+    if (responseData.toString().includes("fetch")) throw responseData;
+
     if (responseData.api_message_error) throw responseData;
 
     localStorage.setItem("token", responseData.token);
@@ -17,11 +19,11 @@ const login = async (formLogin, feedbackEl, spinnerLoad) => {
     setTimeout(() => {
       window.location.href = "painel.html";
     }, 1000);
-    
+
   } catch (err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
-      feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+      feedbackEl.innerHTML = "<span class='erro'>" + err + "</span>";
     } else {
       feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
     }
