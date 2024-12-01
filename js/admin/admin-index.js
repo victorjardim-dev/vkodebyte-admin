@@ -1,6 +1,9 @@
 import login from "./login.js";
 import logout from "./logout.js";
 import dashPainel from "./dashboard.js";
+import newUser from "./newUser.js";
+import listarUsuarios from "./listarUsuarios.js";
+import activateBtnsActions from "../activateBtnsActions.js";
 
 const adminInit = async (feedbackEl, spinnerLoad) => {
   const formLogin = document.getElementById("loginForm");
@@ -33,6 +36,22 @@ const adminInit = async (feedbackEl, spinnerLoad) => {
     const dataAtualSaudacao = document.querySelector(".dia-atual-saudacao");
     dashPainel();
     dataAtualSaudacao.innerHTML = await formatarDataComHora(new Date());
+  }
+
+  if (window.location.pathname === "/usuarios.html") {
+    listarUsuarios(feedbackEl);
+    const newUserForm = document.querySelector("#newUserForm");
+    if (newUserForm) {
+      newUserForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+  
+        const newUserData = event.target;
+  
+        newUser(newUserData, feedbackEl, spinnerLoad);
+        activateBtnsActions(feedbackEl);
+        listarUsuarios(feedbackEl);
+      });
+    }
   }
 }
 

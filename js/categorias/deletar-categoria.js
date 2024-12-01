@@ -1,23 +1,15 @@
-const deletarCategoria = async (BASE_URL_API, idCategoria) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
+const deletarCategoria = async (idCategoria) => {
   try {
-    const request = await fetch(BASE_URL_API + "/categorias" + `/${idCategoria}`, {
-      method: "DELETE",
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
-    });
-    const responseData = await request.json();
+    const responseData = await vkGetFetch(`/categorias/${idCategoria}`, "delete");
 
     if (responseData.api_message_error) {
-      const objErro = new Object();
-      objErro.error = responseData.api_message_error;
-      return objErro;
+      throw responseData;
     }
 
     return responseData;
-    
+
   } catch (err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";

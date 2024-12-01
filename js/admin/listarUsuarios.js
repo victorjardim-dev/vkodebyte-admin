@@ -1,37 +1,40 @@
-const listarUsuarios = async (BASE_URL_API, feedbackEl) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
+const usersList = document.getElementById("lista-categorias-atual");
+
+const criarListaUsuarios = (userData) => {
+  usersList.innerHTML = "";
+  userData.users.forEach(users => {
+    usersList.innerHTML += `
+      <li>
+        <div>
+          <span><strong>Login:</strong> ${users.username}</span><br>
+          <span><strong>Nome:</strong> ${users.name}</span><br>
+          <span><strong>E-mail:</strong> ${users.email}</span><br>
+          <span><strong>Criado por:</strong> ${users.created_by}</span>
+        </div>
+        <div>
+          <span class="btn-acoes" id="${users.id}">Editar</span>
+          <span class="btn-acoes" id="${users.id}">Excluir</span>
+        </div>
+      </li>
+    `
+  });
+}
+
+const listarUsuarios = async (feedbackEl) => {
   try {
-    const request = await fetch(BASE_URL_API + "/admin/usuarios", {
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
-    });
-    const responseData = await request.json();
+    const userData = await vkGetFetch("/admin/usuarios");
 
-    const usersList = document.getElementById("lista-categorias-atual");
+    console.log(userData);
 
-    if (usersList) {
-      usersList.innerHTML = "";
-      responseData.users.forEach(users => {
-        usersList.innerHTML += `
-          <li>
-            <div>
-              <span><strong>Login:</strong> ${users.username}</span><br>
-              <span><strong>Nome:</strong> ${users.name}</span><br>
-              <span><strong>E-mail:</strong> ${users.email}</span><br>
-              <span><strong>Criado por:</strong> ${users.created_by}</span>
-            </div>
-            <div>
-              <span class="btn-acoes" id="${users.id}">Editar</span>
-              <span class="btn-acoes" id="${users.id}">Excluir</span>
-            </div>
-          </li>
-        `
-      });
+    if (userData.users.length > 0) {
+      criarListaUsuarios(userData);
+    } else {
+      usersList.innerHTML = "<li>Ainda não há usuários cadastrados.</li>";
     }
 
-    return responseData;
+    return userData;
 
   } catch (err) {
     if (err.toString().includes("fetch")) {

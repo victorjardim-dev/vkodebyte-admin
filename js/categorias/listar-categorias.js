@@ -1,14 +1,9 @@
-const listarCategorias = async (BASE_URL_API, feedbackEl) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
+const listarCategorias = async (feedbackEl) => {
   try {
-    const request = await fetch(BASE_URL_API + "/categorias", {
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
-    });
-    const responseData = await request.json();
-    
+    const responseData = await vkGetFetch("/categorias");
+
     const categoriaEl = document.getElementById("category_id");
     const categoriasList = document.getElementById("lista-categorias-atual");
 
@@ -19,15 +14,19 @@ const listarCategorias = async (BASE_URL_API, feedbackEl) => {
     }
 
     if (categoriasList) {
-      categoriasList.innerHTML = "";
-      responseData.forEach(categoria => {
-        categoriasList.innerHTML += `<li><span>${categoria.category_name}</span> <span class="btn-acoes excluir-categoria" id="${categoria.id}">Excluir</span></li>`
-      });
+      if (responseData !== "No Content") {
+        categoriasList.innerHTML = "";
+        responseData.forEach(categoria => {
+          categoriasList.innerHTML += `<li><span>${categoria.category_name}</span> <span class="btn-acoes excluir-categoria" id="${categoria.id}">Excluir</span></li>`
+        });
+      } else {
+        categoriasList.innerHTML = "<li>Não categorias cadastradas.</li>"
+      }
     }
-  
+
     return responseData;
-    
-  } catch(err) {
+
+  } catch (err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
     }

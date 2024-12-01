@@ -1,18 +1,16 @@
-const getTotalProducts = async (BASE_URL_API, maximoProdutos, totalProdutos,) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
-  const request = await fetch(BASE_URL_API + "/produtos", {
-    headers: {
-      "auth-api-token": `Bearer ${TOKEN}`
-    }
-  });
-  
-  if (request.status !== 204) {
-    const dataProdutos = await request.json();
+const getTotalProducts = async (maximoProdutos, totalProdutos,) => {
 
-    if (maximoProdutos && totalProdutos) {
+  const dataProdutos = await vkGetFetch("/produtos");
+
+  if (maximoProdutos && totalProdutos) {
+    if (dataProdutos !== "No Content") {
       maximoProdutos.innerHTML = dataProdutos.allowed_max_products;
       totalProdutos.innerHTML = dataProdutos.total_products;
+    } else {
+      maximoProdutos.innerHTML = "-";
+      totalProdutos.innerHTML = "-";
     }
   }
 }

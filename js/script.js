@@ -1,28 +1,19 @@
-import admin from "./admin/index.js";
+import admin from "./admin/admin-index.js";
 import listOrders from "./pedidos/listar-pedidos.js";
-
+import activateBtnsActions from "./activateBtnsActions.js";
 
 const feedbackEl = document.querySelector(".feedback");
 const maximoProdutos = document.querySelector(".maximo-produtos");
 const totalProdutos = document.querySelector(".total-produtos");
 const spinnerLoad = document.querySelector("#spinner-container");
+const BASE_URL_API = "http://localhost:3000";
 
 import listarProdutos from "./produtos/listar.js";
 import cadastrarProduto from "./produtos/criar.js";
-import deletarProduto from "./produtos/deletar.js";
 import editarProduto from "./produtos/editar.js";
-import listarCategorias from "./categorias/listar-categorias.js";
-import newCategory from "./categorias/criar-categoria.js";
-import deletarCategoria from "./categorias/deletar-categoria.js";
-import newUser from "./admin/newUser.js";
-import listarUsuarios from "./admin/listarUsuarios.js";
 import zerarTabela from "./produtos/zerar-tabela.js";
 import pesquisar from "./produtos/pesquisar.js";
 import getTotalProducts from "./produtos/total.js";
-
-// const BASE_URL_API = "http://104.234.63.58:3000";
-const BASE_URL_API = "http://localhost:3000";
-
 
 import auth from "../js/admin/auth.js";
 import verifyToken from "./admin/verifyToken.js";
@@ -32,7 +23,7 @@ if (window.location.pathname !== "/" && window.location.pathname !== "/index.htm
   // Verifica token em minutos
   verifyToken(BASE_URL_API, 60);
 
-  getTotalProducts(BASE_URL_API, maximoProdutos, totalProdutos);  
+  getTotalProducts(maximoProdutos, totalProdutos);
 }
 
 if (window.location.pathname === "/listagem.html") {
@@ -51,15 +42,16 @@ if (window.location.pathname === "/cadastro.html") {
   });
 }
 
+import listarCategorias from "./categorias/listar-categorias.js";
+import newCategory from "./categorias/criar-categoria.js";
 if (window.location.pathname === "/categorias.html") {
-  listarCategorias(BASE_URL_API, feedbackEl);
+  listarCategorias(feedbackEl);
   const categoryForm = document.querySelector("#categoryForm");
   if (categoryForm) {
     categoryForm.addEventListener("submit", (event) => {
       event.preventDefault();
       newCategory(BASE_URL_API, categoryForm[0], feedbackEl, spinnerLoad);
-      activateBtnsActions();
-      hideFeedBack();
+      activateBtnsActions(feedbackEl);
     });
   }
 }
@@ -82,101 +74,6 @@ if (window.location.pathname === "/editar.html") {
     window.location.href = "./";
   }
 }
-
-if (window.location.pathname === "/usuarios.html") {
-  listarUsuarios(BASE_URL_API, feedbackEl);
-  const newUserForm = document.querySelector("#newUserForm");
-  if (newUserForm) {
-    newUserForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const newUserData = event.target;
-
-      newUser(BASE_URL_API, newUserData, feedbackEl, spinnerLoad);
-      activateBtnsActions();
-      hideFeedBack();
-    });
-  }
-}
-
-function activateBtnsActions() {
-  setTimeout(() => {
-    const btnRedirectEditar = document.querySelectorAll("button.editar");
-    if (btnRedirectEditar) {
-      btnRedirectEditar.forEach(btn => {
-        btn.addEventListener("click", (event) => {
-          spinnerLoad.classList.add("ativo");
-          window.location.href = "/editar.html?product_code=" + event.target.offsetParent.id;
-        });
-      });
-    }
-
-    const btnExcluir = document.querySelectorAll("button.excluir");
-    if (btnExcluir) {
-      btnExcluir.forEach((btn, index) => {
-        btn.addEventListener("click", async (event) => {
-          const codigo_produto = event.target.offsetParent.id;
-          const msg = `Deseja deletar o produto?\nCódigo do produto: ${codigo_produto}`;
-          if (confirm(msg)) {
-            try {
-              const delPrdo = await deletarProduto(BASE_URL_API, codigo_produto, index);
-              const delError = delPrdo;
-
-              if (delError.error) {
-                throw delError;
-              }
-
-              alert("Produto deletado com sucesso!");
-              window.location.reload();
-
-            } catch (err) {
-              if (err.error) {
-                alert(err.error[0] + "\n" + (err.error[1] || ""));
-              } else {
-                alert(err);
-              }
-            }
-          }
-        });
-      });
-    }
-
-    const btnExcluirCategoria = document.querySelectorAll(".excluir-categoria");
-    if (btnExcluirCategoria.length > 0) {
-      btnExcluirCategoria.forEach((btn) => {
-        btn.addEventListener("click", async (event) => {
-          const codigo_produto = event.target.id;
-          const msg = `Deseja deletar a categoria #${codigo_produto} ?`;
-          if (confirm(msg)) {
-            try {
-              const delPrdo = await deletarCategoria(BASE_URL_API, codigo_produto);
-              const delError = delPrdo;
-
-              if (delError.error) {
-                throw delError;
-              }
-              
-              feedbackEl.innerHTML = "<span class='sucesso'>" + delError.api_message + "</span>";
-              listarCategorias(BASE_URL_API, feedbackEl);
-              activateBtnsActions();
-
-            } catch (err) {
-              if (Array.isArray(err.error)) {
-                const errArr = err.error;
-                feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] + "</span>";
-              } else {
-                feedbackEl.innerHTML = "<span class='erro'>" + err.error + "</span>";
-              }
-            }
-          }
-        });
-      });
-    }
-
-  }, 500);
-}
-
-activateBtnsActions();
 
 // Ativar loadingSpinner nos links
 const links = document.querySelectorAll("a");
@@ -221,46 +118,13 @@ setTimeout(() => {
   });
 }, 500);
 
-// const btnZerar = document.querySelector(".zerar-tabela-produtos");
-// if (btnZerar) {
-//   btnZerar.addEventListener("click", async (event) => {
-//     event.preventDefault();
-//     const msg = `Deseja deletar todos os produtos?`;
-//     if (confirm(msg)) {
-//       try {
-//         const delPrdo = await zerarTabela(BASE_URL_API);
-//         const delError = delPrdo;
-
-//         if (delError.error) {
-//           throw delError;
-//         }
-
-//         alert(delPrdo.api_message);
-//         // window.location.reload();
-
-//       } catch (err) {
-//         if (err.error) {
-//           alert(err.error[0] + "\n" + (err.error[1] || ""));
-//         } else {
-//           alert(err);
-//         }
-//       }
-//     }
-//     spinnerLoad.classList.remove("ativo");
-//   });
-// }
-
-function hideFeedBack() {
-  // setTimeout(() => {
-  //   feedbackEl.innerHTML = "";
-  // }, 3000);
-}
-
 const anoAtual = document.getElementById("ano-atual");
 anoAtual.innerHTML = new Date().getFullYear();
 
 // Inicia Admin
 admin(feedbackEl, spinnerLoad);
+
+activateBtnsActions(feedbackEl);
 
 // Lista pedidos
 if (window.location.pathname === "/pedidos.html") {

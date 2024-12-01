@@ -23,9 +23,7 @@ const vkGetFetch = async (route = "", typeMethod = "GET", bodyData = {}) => {
     if (bodyData instanceof FormData) {
       requestOptions.body = bodyData;
     } else {
-      requestOptions.headers = {
-        "Content-Type": "application/json"
-      };
+      requestOptions.headers["Content-Type"] = "application/json";
       requestOptions.body = JSON.stringify(bodyData);
     }
   }
