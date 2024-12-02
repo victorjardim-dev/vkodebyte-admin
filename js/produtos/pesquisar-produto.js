@@ -1,18 +1,13 @@
 import listarCategorias from "../categorias/listar-categorias.js";
+import vkGetFetch, { BASE_URL_API } from "../vkGetFetch.js";
 
-const pesquisar = async (BASE_URL_API, id_produto, feedbackEl) => {
-  const TOKEN = localStorage.getItem("token");
+const pesquisar = async (id_produto, feedbackEl) => {
   const nomeProduto = document.querySelector(".nome-produto-editar");
 
   try {
-    const request = await fetch(BASE_URL_API + "/produtos" + `/${id_produto}`, {
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
-    })
-    const dados = await request.json();
+    const dados = await vkGetFetch(`/produtos/${id_produto}`);
     
-    await listarCategorias(BASE_URL_API, feedbackEl);
+    await listarCategorias(feedbackEl);
 
     if (nomeProduto) {
       nomeProduto.innerHTML += dados.name + " - " + parseFloat(dados.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" });

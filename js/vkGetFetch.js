@@ -1,4 +1,4 @@
-const BASE_URL_API = "http://localhost:3000";
+export const BASE_URL_API = "http://localhost:3000";
 const loginRoute = "/admin/login";
 
 const vkGetFetch = async (route = "", typeMethod = "GET", bodyData = {}) => {
@@ -23,7 +23,10 @@ const vkGetFetch = async (route = "", typeMethod = "GET", bodyData = {}) => {
     if (bodyData instanceof FormData) {
       requestOptions.body = bodyData;
     } else {
-      requestOptions.headers["Content-Type"] = "application/json";
+      requestOptions.headers = {
+        ...requestOptions.headers,
+        "Content-Type": "application/json"
+      }
       requestOptions.body = JSON.stringify(bodyData);
     }
   }

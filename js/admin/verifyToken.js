@@ -1,7 +1,7 @@
 import auth from "./auth.js";
 
 let t;
-const verifyToken = (BASE_URL_API, time) => {
+const verifyToken = (time) => {
   t = setInterval(async () => {
     const TOKEN = localStorage.getItem("token");
     console.log("Verificando token...");
@@ -9,7 +9,7 @@ const verifyToken = (BASE_URL_API, time) => {
       console.log("Token não existe.");
       clearInterval(t);
     } else {
-      await auth(BASE_URL_API);
+      await auth();
       console.log("Token válido");
     }
   }, (time * 1000) * 60);

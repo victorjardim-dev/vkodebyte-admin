@@ -1,8 +1,9 @@
 import listarCategorias from "../categorias/listar-categorias.js";
+import vkGetFetch, { BASE_URL_API } from "../vkGetFetch.js";
 
 const formatarData = (date) => new Date(date).toLocaleString().replace(", ", " às ");
 
-const criarProdutos = async (BASE_URL_API, produtos) => {
+const criarProdutos = async (produtos) => {
   try {
     const categoriesProducts = await listarCategorias(BASE_URL_API);
 
@@ -10,7 +11,6 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
       throw categoriesProducts;
     }
 
-    
     const divPrincipal = document.createElement("div");
     divPrincipal.classList.add("container-produtos");
     
@@ -50,25 +50,17 @@ const criarProdutos = async (BASE_URL_API, produtos) => {
   }
 }
 
-const listarProdutos = async (BASE_URL_API, feedbackEl, spinnerLoad) => {
-  const TOKEN = localStorage.getItem("token");
-  
+const listarProdutos = async (feedbackEl, spinnerLoad) => {  
   try {
-    const request = await fetch(BASE_URL_API + "/produtos", {
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
-    });
+    const dataProdutos = await vkGetFetch("/produtos");
 
-    if (request.status === 204) {
-      throw new Error("Não há produtos cadastrados.");
+    if (dataProdutos === "No Content") {
+      throw new Error("Não há produtos.");
     }
-
-    const dataProdutos = await request.json();
 
     const products = dataProdutos.products;
 
-    const produtosEl = await criarProdutos(BASE_URL_API, products, feedbackEl);
+    const produtosEl = await criarProdutos(products, feedbackEl);
 
     if (produtosEl.api_message_error) {
       feedbackEl.innerHTML = "<span class='erro'>" + produtosEl.api_message_error + "</span>";

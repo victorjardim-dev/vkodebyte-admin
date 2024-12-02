@@ -1,17 +1,10 @@
-const cadastrarProduto = async (BASE_URL_API, dadosFormulario, feedbackEl, spinnerLoad) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
+const cadastrarProduto = async (dadosFormulario, feedbackEl, spinnerLoad) => {
   try {
-    const request = await fetch(BASE_URL_API + "/produtos", {
-      method: "POST",
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      },
-      body: dadosFormulario
-    });
-    const responseData = await request.json();
+    const responseData = await vkGetFetch("/produtos", "post", dadosFormulario);
 
-    if (!request.ok) {
+    if (responseData.api_message_error) {
       throw responseData;
     }
 

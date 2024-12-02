@@ -50,7 +50,7 @@ const listOrders = async (feedbackEl, spinnerLoad) => {
         err = "Não foi possível se conectar ao servidor.";
         feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
       } else {
-        feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+        feedbackEl.innerHTML = "<span>" + err.toString().replace("Error: ", "") + "</span>";
       }
     }
   }

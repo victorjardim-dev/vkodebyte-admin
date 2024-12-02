@@ -1,4 +1,6 @@
-const auth = async (BASE_URL_API, spinnerLoad) => {
+import vkGetFetch from "../vkGetFetch.js";
+
+const auth = async () => {
   const TOKEN = localStorage.getItem("token");
   const maskContent = document.querySelector(".mask-content-token");
   console.log("Autorizando...");
@@ -12,13 +14,9 @@ const auth = async (BASE_URL_API, spinnerLoad) => {
         console.log("Acesso Negado!");
       } else {
         try {
-          const request = await fetch(BASE_URL_API + "/admin/painel", {
-            headers: { "auth-api-token": `Bearer ${TOKEN}` },
-          });
+          const responseData = await vkGetFetch("/admin/painel");
 
-          const responseData = await request.json();
-
-          if (!request.ok) {
+          if (responseData.api_message_error) {
             throw responseData
           }
 
@@ -28,7 +26,6 @@ const auth = async (BASE_URL_API, spinnerLoad) => {
           return responseData;
 
         } catch (err) {
-          console.log(err);
           localStorage.removeItem("token");
           aviso.innerHTML = err.api_message_error || "Seção Expirada";
         }

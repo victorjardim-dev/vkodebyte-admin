@@ -26,8 +26,6 @@ const listarUsuarios = async (feedbackEl) => {
   try {
     const userData = await vkGetFetch("/admin/usuarios");
 
-    console.log(userData);
-
     if (userData.users.length > 0) {
       criarListaUsuarios(userData);
     } else {

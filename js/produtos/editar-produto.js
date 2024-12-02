@@ -1,17 +1,10 @@
-const editarProduto = async (BASE_URL_API, dadosFormulario, codigoProduto, feedbackEl, spinnerLoad) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
+const editarProduto = async (dadosFormulario, codigoProduto, feedbackEl, spinnerLoad) => {
   try {
-    const request = await fetch(BASE_URL_API + "/produtos" + `/${codigoProduto}`, {
-      method: "PUT",
-      body: dadosFormulario,
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
-    });
-    const responseData = await request.json();
+    const responseData = await vkGetFetch(`/produtos/${codigoProduto}`, "put", dadosFormulario);
     
-    if (!request.ok) {
+    if (responseData.api_message_error) {
       throw responseData;
     }
     

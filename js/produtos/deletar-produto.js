@@ -1,14 +1,12 @@
-const zerarTabela = async (BASE_URL_API) => {
-  const TOKEN = localStorage.getItem("token");
+import vkGetFetch from "../vkGetFetch.js";
 
+const deletarProduto = async (codigoProduto, index) => {
   try {
-    const request = await fetch(BASE_URL_API + "/zerar-tabela-produtos", {
-      method: "DELETE",
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`
-      }
+    const imagem = document.querySelectorAll(".produtos img");
+
+    const responseData = await vkGetFetch(`/produtos/${codigoProduto}`, "delete", {
+      deleteImg: imagem[index].src.split("uploads/")[1]
     });
-    const responseData = await request.json();
 
     if (responseData.api_message_error) {
       const objErro = new Object();
@@ -26,4 +24,4 @@ const zerarTabela = async (BASE_URL_API) => {
   }
 }
 
-export default zerarTabela;
+export default deletarProduto;

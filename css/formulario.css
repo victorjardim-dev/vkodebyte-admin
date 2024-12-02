@@ -61,6 +61,8 @@
 #newUserForm .campos-form input {
   width: 100%;
   padding: 8px;
+  border: 1px solid #c7c7c7;
+  outline: none;
 }
 
 #cadastroForm .campos-form textarea,
@@ -79,4 +81,16 @@
 #cadastroForm .campos-form.categoria-status div,
 #editarForm .campos-form.categoria-status div {
   width: 100%;
+}
+
+form input, form textarea {
+  transition: .2s box-shadow;
+}
+
+form input:hover, form textarea:hover {
+  box-shadow: 0 0 4px 1px #76d;
+}
+
+form input:focus, form textarea:focus {
+  box-shadow: 0 0 2px 2px #76d;
 }

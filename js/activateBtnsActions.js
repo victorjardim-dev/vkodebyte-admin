@@ -1,8 +1,8 @@
-import deletarProduto from "./produtos/deletar.js";
+import deletarProduto from "./produtos/deletar-produto.js";
 import deletarCategoria from "./categorias/deletar-categoria.js";
 import listarCategorias from "./categorias/listar-categorias.js";
 
-const activateBtnsActions = (feedbackEl) => {
+const activateBtnsActions = (feedbackEl, spinnerLoad) => {
   setTimeout(() => {
     const btnRedirectEditar = document.querySelectorAll("button.editar");
     if (btnRedirectEditar.length > 0) {
@@ -22,11 +22,10 @@ const activateBtnsActions = (feedbackEl) => {
           const msg = `Deseja deletar o produto?\nCódigo do produto: ${codigo_produto}`;
           if (confirm(msg)) {
             try {
-              const delPrdo = await deletarProduto(BASE_URL_API, codigo_produto, index);
-              const delError = delPrdo;
+              const delPrdo = await deletarProduto(codigo_produto, index);
 
-              if (delError.error) {
-                throw delError;
+              if (delPrdo.error) {
+                throw delPrdo;
               }
 
               alert("Produto deletado com sucesso!");
