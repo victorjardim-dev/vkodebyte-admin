@@ -15,6 +15,7 @@ const maximoProdutos = document.querySelector(".maximo-produtos");
 const totalProdutos = document.querySelector(".total-produtos");
 const spinnerLoad = document.querySelector("#spinner-container");
 
+
 if (window.location.pathname !== "/" && window.location.pathname !== "/index.html") {
   auth();
   verifyToken(60);
@@ -22,10 +23,10 @@ if (window.location.pathname !== "/" && window.location.pathname !== "/index.htm
 }
 
 // Inicia Admin
-admin(feedbackEl, spinnerLoad);
+admin(spinnerLoad);
 
 // Inicia Categorias
-categyInit(feedbackEl, spinnerLoad);
+categyInit(spinnerLoad);
 
 // Inicia Produtos;
 produtosInit(feedbackEl, spinnerLoad);

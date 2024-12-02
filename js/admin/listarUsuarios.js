@@ -1,3 +1,4 @@
+import activeNotify from "../active-notify.js";
 import vkGetFetch from "../vkGetFetch.js";
 
 const usersList = document.getElementById("lista-categorias-atual");
@@ -22,7 +23,7 @@ const criarListaUsuarios = (userData) => {
   });
 }
 
-const listarUsuarios = async (feedbackEl) => {
+const listarUsuarios = async () => {
   try {
     const userData = await vkGetFetch("/admin/usuarios");
 
@@ -38,7 +39,7 @@ const listarUsuarios = async (feedbackEl) => {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
     }
-    feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+    activeNotify(err.toString().replace("Error: ", ""), 2);
   }
 }
 

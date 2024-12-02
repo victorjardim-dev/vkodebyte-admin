@@ -3,6 +3,8 @@ import deletarCategoria from "./categorias/deletar-categoria.js";
 import deletarUsuario from "./admin/deletar-usuario.js";
 import listarUsuarios from "./admin/listarUsuarios.js";
 import listarCategorias from "./categorias/listar-categorias.js";
+import listarProdutos from "./produtos/listar-produto.js";
+import activeNotify from "./active-notify.js";
 
 const activateBtnsActions = (feedbackEl, spinnerLoad) => {
   setTimeout(() => {
@@ -29,7 +31,6 @@ const activateBtnsActions = (feedbackEl, spinnerLoad) => {
               if (delPrdo.error) {
                 throw delPrdo;
               }
-
               alert("Produto deletado com sucesso!");
               window.location.reload();
 
@@ -63,15 +64,15 @@ const activateBtnsActions = (feedbackEl, spinnerLoad) => {
                 throw delCategory.api_message_error;
               }
 
-              feedbackEl.innerHTML = "<span class='sucesso'>" + delCategory.api_message + "</span>";
-              listarCategorias(feedbackEl);
-              activateBtnsActions(feedbackEl);
+              activeNotify(delCategory.api_message, 1);
+              listarCategorias();
+              activateBtnsActions(spinnerLoad);
 
             } catch (err) {
               if (Array.isArray(err)) {
-                feedbackEl.innerHTML = "<span class='erro'>" + err[0] + " <br> " + err[1] + "</span>";
+                activeNotify(err[0] + " <br> " + err[1], 2);
               } else {
-                feedbackEl.innerHTML = "<span class='erro'>" + err.error + "</span>";
+                activeNotify(err.error, 2);
               }
             }
           }
@@ -91,14 +92,14 @@ const activateBtnsActions = (feedbackEl, spinnerLoad) => {
               if (delUser.api_message_error) {
                 throw delUser.api_message_error;
               }
-              feedbackEl.innerHTML = "<span class='sucesso'>" + delUser.api_message + "</span>";
+              activeNotify(delUser.api_message, 1);
               listarUsuarios();
             } catch(err) {
               console.log(err);
               if (Array.isArray(err)) {
-                feedbackEl.innerHTML = "<span class='erro'>" + err[0] + " <br> " + err[1] + "</span>";
+                activeNotify(err[0] + " <br> " + err[1], 2);
               } else {
-                feedbackEl.innerHTML = "<span class='erro'>" + err + "</span>";
+                activeNotify(err, 2);
               }
             }
           }

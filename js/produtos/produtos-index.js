@@ -10,14 +10,14 @@ const produtosInit = (feedbackEl, spinnerLoad) => {
   }
 
   if (window.location.pathname === "/novo-produto.html") {
-    listarCategorias(feedbackEl);
+    listarCategorias();
     const cadastroForm = document.querySelector("#cadastroForm");
 
     cadastroForm.addEventListener("submit", (event) => {
       event.preventDefault();
 
       const formData = new FormData(event.target);
-      cadastrarProduto(formData, feedbackEl, spinnerLoad);
+      cadastrarProduto(formData, spinnerLoad);
     });
   }
 

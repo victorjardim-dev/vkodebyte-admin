@@ -50,6 +50,7 @@ img {
 
 main {
   margin-top: 60px;
+  position: relative;
 }
 
 .container-geral {

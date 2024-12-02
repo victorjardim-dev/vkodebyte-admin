@@ -1,7 +1,8 @@
 import vkGetFetch from "../vkGetFetch.js";
 import listarCategorias from "./listar-categorias.js";
+import activeNotify from "../active-notify.js";
 
-const newCategory = async (newCategoryForm, feedbackEl, spinnerLoad) => {
+const newCategory = async (newCategoryForm, spinnerLoad) => {
   const newCategory = {
     category_name: newCategoryForm[0].value
   }
@@ -12,16 +13,16 @@ const newCategory = async (newCategoryForm, feedbackEl, spinnerLoad) => {
     if (responseData.api_message_error) {
       throw responseData.api_message_error;
     }
-  
-    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
-    listarCategorias(feedbackEl);
+    
+    activeNotify(responseData.api_message, 1);
+    listarCategorias();
 
   } catch (err) {    
     if (Array.isArray(err)) {
       const errArr = err;
-      feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] + "</span>";
+      activeNotify(errArr[0] + " <br> " + errArr[1], 2);
     } else {
-      feedbackEl.innerHTML = "<span class='erro'>" + err + "</span>";
+      activeNotify(err, 2);
     }
   }
   newCategoryForm.reset();

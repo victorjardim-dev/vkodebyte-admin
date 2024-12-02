@@ -5,7 +5,7 @@ import newUser from "./newUser.js";
 import listarUsuarios from "./listarUsuarios.js";
 import activateBtnsActions from "../activateBtnsActions.js";
 
-const adminInit = async (feedbackEl, spinnerLoad) => {
+const adminInit = async (spinnerLoad) => {
   const formLogin = document.getElementById("loginForm");
   const bntLogout = document.getElementById("btn-logout");
   
@@ -13,7 +13,7 @@ const adminInit = async (feedbackEl, spinnerLoad) => {
     formLogin.addEventListener("submit", (event) => {
       event.preventDefault();
       console.log("Logando...");
-      login(event.target, feedbackEl, spinnerLoad);
+      login(event.target, spinnerLoad);
     });
   }
   
@@ -39,7 +39,7 @@ const adminInit = async (feedbackEl, spinnerLoad) => {
   }
 
   if (window.location.pathname === "/usuarios.html") {
-    listarUsuarios(feedbackEl);
+    listarUsuarios();
     const newUserForm = document.querySelector("#newUserForm");
     if (newUserForm) {
       newUserForm.addEventListener("submit", (event) => {
@@ -47,9 +47,9 @@ const adminInit = async (feedbackEl, spinnerLoad) => {
   
         const newUserData = event.target;
   
-        newUser(newUserData, feedbackEl, spinnerLoad);
-        activateBtnsActions(feedbackEl);
-        listarUsuarios(feedbackEl);
+        newUser(newUserData, spinnerLoad);
+        activateBtnsActions(spinnerLoad);
+        listarUsuarios();
       });
     }
   }

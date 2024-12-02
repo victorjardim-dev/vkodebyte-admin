@@ -1,6 +1,7 @@
 import vkGetFetch from "../vkGetFetch.js";
+import activeNotify from "../active-notify.js";
 
-const listarCategorias = async (feedbackEl) => {
+const listarCategorias = async () => {
   try {
     const responseData = await vkGetFetch("/categorias");
 
@@ -30,7 +31,7 @@ const listarCategorias = async (feedbackEl) => {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
     }
-    feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+    activeNotify(err.toString().replace("Error: ", ""), 2);
   }
 }
 

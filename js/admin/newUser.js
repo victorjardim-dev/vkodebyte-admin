@@ -1,7 +1,8 @@
+import activeNotify from "../active-notify.js";
 import vkGetFetch from "../vkGetFetch.js";
 import listarUsuarios from "./listarUsuarios.js";
 
-const newUser = async (newUserForm, feedbackEl, spinnerLoad) => {
+const newUser = async (newUserForm, spinnerLoad) => {
 
   const newuser = {
     name: newUserForm[0].value,
@@ -17,16 +18,16 @@ const newUser = async (newUserForm, feedbackEl, spinnerLoad) => {
       throw responseData;
     }  
   
-    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
+    activeNotify(responseData.api_message, 1);
     newUserForm.reset();
-    listarUsuarios(feedbackEl);
+    listarUsuarios();
 
   } catch (err) {
     if (Array.isArray(err.api_message_error)) {
       const errArr = err.api_message_error;
-      feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] + "</span>";
+      activeNotify(errArr[0] + " <br> " + errArr[1], 2);
     } else {
-      feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+      activeNotify(err.api_message_error, 2);
     }
   }
   spinnerLoad.classList.remove("ativo");

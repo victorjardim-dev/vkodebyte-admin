@@ -1,6 +1,7 @@
+import activeNotify from "../active-notify.js";
 import vkGetFetch from "../vkGetFetch.js";
 
-const login = async (formLogin, feedbackEl, spinnerLoad) => {
+const login = async (formLogin, spinnerLoad) => {
   const objLogin = {
     username: formLogin.username.value,
     user_pass: formLogin.user_pass.value
@@ -14,7 +15,7 @@ const login = async (formLogin, feedbackEl, spinnerLoad) => {
     if (responseData.api_message_error) throw responseData;
 
     localStorage.setItem("token", responseData.token);
-    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "<br>Redirecionando para o painel...</span>";
+    activeNotify(responseData.api_message + "<br>Redirecionando para o painel...", 1);
 
     setTimeout(() => {
       window.location.href = "painel.html";
@@ -23,10 +24,11 @@ const login = async (formLogin, feedbackEl, spinnerLoad) => {
   } catch (err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
-      feedbackEl.innerHTML = "<span class='erro'>" + err + "</span>";
+      activeNotify(err, 2);
     } else {
-      feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+      activeNotify(err.api_message_error, 2);
     }
+
   }
   spinnerLoad.classList.remove("ativo");
 }

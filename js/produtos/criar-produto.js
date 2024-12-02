@@ -1,6 +1,7 @@
 import vkGetFetch from "../vkGetFetch.js";
+import activeNotify from "../active-notify.js";
 
-const cadastrarProduto = async (dadosFormulario, feedbackEl, spinnerLoad) => {
+const cadastrarProduto = async (dadosFormulario, spinnerLoad) => {
   try {
     const responseData = await vkGetFetch("/produtos", "post", dadosFormulario);
 
@@ -8,18 +9,18 @@ const cadastrarProduto = async (dadosFormulario, feedbackEl, spinnerLoad) => {
       throw responseData;
     }
 
-    feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
+    activeNotify(responseData.api_message, 1);
 
   } catch (err) {
     if (Array.isArray(err.api_message_error.errors)) {
       const errArr = err.api_message_error.errors;
-      feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] || "" + "</span>";
+      activeNotify(errArr[0] + " <br> " + errArr[1], 2);
     } else {
       if (err.toString().includes("fetch")) {
         err = "Não foi possível se conectar ao servidor.";
-        feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+        activeNotify(err.toString().replace("Error: ", ""), 2);
       } else {
-        feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+        activeNotify(err.api_message_error, 2);
       }
     }
   }

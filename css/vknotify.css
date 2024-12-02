@@ -1,0 +1,58 @@
+#vk-notify {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  box-shadow: 2px 2px 8px 0 #929292;
+  max-width: 400px;
+  width: 100%;
+  opacity: 0;
+  background: #f7f7f7;
+  visibility: hidden;
+}
+
+#vk-notify .notify-body {
+  padding: 12px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+}
+
+#vk-notify span.sucesso {
+  color: #28a745;
+}
+
+#vk-notify span.erro {
+  color: #dc3545;
+}
+
+@keyframes showNotify {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, 12px, 0);
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+    visibility: visible;
+  }
+}
+
+@keyframes hideNotify {
+  from {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-50%, -12px, 0);
+    visibility: hidden;
+  }
+}

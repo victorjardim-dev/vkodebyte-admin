@@ -1,3 +1,4 @@
+import activeNotify from "../active-notify.js";
 import listarCategorias from "../categorias/listar-categorias.js";
 import vkGetFetch, { BASE_URL_API } from "../vkGetFetch.js";
 
@@ -63,7 +64,7 @@ const listarProdutos = async (feedbackEl, spinnerLoad) => {
     const produtosEl = await criarProdutos(products, feedbackEl);
 
     if (produtosEl.api_message_error) {
-      feedbackEl.innerHTML = "<span class='erro'>" + produtosEl.api_message_error + "</span>";
+      activeNotify(produtosEl.api_message_error, 2);
     } else {
       if (window.location.pathname !== "/novo-produto.html" && window.localStorage.getItem("token")) {
         feedbackEl.appendChild(produtosEl);
@@ -73,9 +74,9 @@ const listarProdutos = async (feedbackEl, spinnerLoad) => {
   } catch (err) {
     if (err.toString().includes("fetch")) {
       err = "Não foi possível se conectar ao servidor.";
-      feedbackEl.innerHTML = "<span class='erro'>" + err.toString().replace("Error: ", "") + "</span>";
+      activeNotify(err.toString().replace("Error: ", ""), 2);
     } else {
-      feedbackEl.innerHTML = "<span>" + err.toString().replace("Error: ", "") + "</span>";
+      activeNotify(err.toString().replace("Error: ", ""), 2);
     }
   }
   spinnerLoad.classList.remove("ativo");
