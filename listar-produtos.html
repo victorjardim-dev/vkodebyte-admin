@@ -19,8 +19,8 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="./painel.html" class="btn-principal">Painel</a></li>
+          <li><a href="./listar-produtos.html" class="btn-principal">Produtos</a></li>
           <li><a href="./usuarios.html" class="btn-principal">Usuários</a></li>
-          <li><a href="./listagem.html" class="btn-principal">Produtos</a></li>
           <li><a href="./pedidos.html" class="btn-principal">Pedidos</a></li>
           <li><a href="./categorias.html" class="btn-principal">Categorias</a></li>
           <li><button id="btn-logout" class="btn-secundario">Sair</button></li>
@@ -30,54 +30,14 @@
 
     <main>
       <div class="infos">
+        <!-- <input type="text" name="pesquisar" id="pesquisar" placeholder="Procurar Produto"> -->
         <h1>Produtos</h1>
         <div>
           <p>Produtos: <span class="total-produtos">0</span>/<span class="maximo-produtos">0</span></p>
+          <a href="./novo-produto.html" class="btn-principal">Novo Produto</a>
         </div>
       </div>
-
-      <div class="container-form">
-        <div class="feedback"></div>
-        <form id="cadastroForm" enctype="multipart/form-data">
-
-          <div class="campos-form">
-            <label for="name">Nome</label>
-            <input type="text" name="name" id="name">
-          </div>
-
-          <div class="campos-form categoria-status">
-            <div>
-              <label for="price">Preço</label>
-              <input type="text" name="price" id="price">
-            </div>
-
-            <div>
-              <label for="stock">Quantidade em Estoque</label>
-              <input type="text" name="stock" id="stock">
-            </div>
-          </div>
-
-          <div class="campos-form categoria-status">
-            <div class="campos-form">
-              <label for="url_image">Imagem</label>
-              <input type="file" name="url_image" id="url_image" accept="image/*">
-            </div>
-            <div>
-              <label for="category_id">Categoria</label>
-              <select name="category_id" id="category_id">
-                <option value="">Selecione uma Categoria</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="campos-form">
-            <label for="description">Descrição</label>
-            <textarea type="text" name="description" id="description"></textarea>
-          </div>
-
-          <button type="submit" class="cadastrar btn-principal">Cadastrar Produto</button>
-        </form>
-      </div>
+      <div class="feedback"></div>
     </main>
 
     <footer>

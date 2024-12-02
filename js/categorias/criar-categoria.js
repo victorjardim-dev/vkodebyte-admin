@@ -1,38 +1,30 @@
+import vkGetFetch from "../vkGetFetch.js";
 import listarCategorias from "./listar-categorias.js";
 
-const newCategory = async (BASE_URL_API, dados, feedbackEl, spinnerLoad) => {
-  const TOKEN = localStorage.getItem("token");
+const newCategory = async (newCategoryForm, feedbackEl, spinnerLoad) => {
+  const newCategory = {
+    category_name: newCategoryForm[0].value
+  }
 
   try {
-    const request = await fetch(BASE_URL_API + "/categorias", {
-      method: "POST",
-      headers: {
-        "auth-api-token": `Bearer ${TOKEN}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify( {category_name: dados.value} )
-    });
-    
-    const responseData = await request.json();
-    
-    if (!request.ok) {
-      throw responseData;
+    const responseData = await vkGetFetch("/categorias", "post", newCategory);
+
+    if (responseData.api_message_error) {
+      throw responseData.api_message_error;
     }
-  
   
     feedbackEl.innerHTML = "<span class='sucesso'>" + responseData.api_message + "</span>";
-    dados.value = "";
-    listarCategorias(BASE_URL_API, feedbackEl);
-    
+    listarCategorias(feedbackEl);
 
   } catch (err) {    
-    if (Array.isArray(err.api_message_error)) {
-      const errArr = err.api_message_error;
+    if (Array.isArray(err)) {
+      const errArr = err;
       feedbackEl.innerHTML = "<span class='erro'>" + errArr[0] + " <br> " + errArr[1] + "</span>";
     } else {
-      feedbackEl.innerHTML = "<span class='erro'>" + err.api_message_error + "</span>";
+      feedbackEl.innerHTML = "<span class='erro'>" + err + "</span>";
     }
   }
+  newCategoryForm.reset();
   spinnerLoad.classList.remove("ativo");
 }
 

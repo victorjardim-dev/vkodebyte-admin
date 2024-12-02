@@ -5,11 +5,11 @@ import pesquisar from "./pesquisar-produto.js";
 import listarCategorias from "../categorias/listar-categorias.js";
 
 const produtosInit = (feedbackEl, spinnerLoad) => {
-  if (window.location.pathname === "/listagem.html") {
+  if (window.location.pathname === "/listar-produtos.html") {
     listarProdutos(feedbackEl, spinnerLoad);
   }
 
-  if (window.location.pathname === "/cadastro.html") {
+  if (window.location.pathname === "/novo-produto.html") {
     listarCategorias(feedbackEl);
     const cadastroForm = document.querySelector("#cadastroForm");
 
@@ -21,7 +21,7 @@ const produtosInit = (feedbackEl, spinnerLoad) => {
     });
   }
 
-  if (window.location.pathname === "/editar.html") {
+  if (window.location.pathname === "/editar-produto.html") {
     const codigo_produto = window.location.search.split("=")[1];
 
     if (codigo_produto) {

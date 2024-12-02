@@ -1,7 +1,8 @@
 import listarCategorias from "./listar-categorias.js";
 import newCategory from "./criar-categoria.js";
+import activateBtnsActions from "../activateBtnsActions.js";
 
-const categyInit = (feedbackEl) => {
+const categyInit = (feedbackEl, spinnerLoad) => {
 
   if (window.location.pathname === "/categorias.html") {
     listarCategorias(feedbackEl);
@@ -9,8 +10,12 @@ const categyInit = (feedbackEl) => {
     if (categoryForm) {
       categoryForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        newCategory(BASE_URL_API, categoryForm[0], feedbackEl, spinnerLoad);
-        activateBtnsActions(feedbackEl);
+        try {
+          newCategory(event.target, feedbackEl, spinnerLoad);
+          activateBtnsActions(feedbackEl);
+        } catch (err) {
+          console.log(err);
+        }
       });
     }
   }

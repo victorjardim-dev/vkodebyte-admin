@@ -1,22 +1,24 @@
 import deletarProduto from "./produtos/deletar-produto.js";
 import deletarCategoria from "./categorias/deletar-categoria.js";
+import deletarUsuario from "./admin/deletar-usuario.js";
+import listarUsuarios from "./admin/listarUsuarios.js";
 import listarCategorias from "./categorias/listar-categorias.js";
 
 const activateBtnsActions = (feedbackEl, spinnerLoad) => {
   setTimeout(() => {
-    const btnRedirectEditar = document.querySelectorAll("button.editar");
-    if (btnRedirectEditar.length > 0) {
-      btnRedirectEditar.forEach(btn => {
+    const btnRedirectProduct = document.querySelectorAll("button.editar");
+    if (btnRedirectProduct.length > 0) {
+      btnRedirectProduct.forEach(btn => {
         btn.addEventListener("click", (event) => {
           spinnerLoad.classList.add("ativo");
-          window.location.href = "/editar.html?product_code=" + event.target.offsetParent.id;
+          window.location.href = "/editar-produto.html?product_code=" + event.target.offsetParent.id;
         });
       });
     }
 
-    const btnExcluir = document.querySelectorAll("button.excluir");
-    if (btnExcluir.length > 0) {
-      btnExcluir.forEach((btn, index) => {
+    const btnExcluirProduto = document.querySelectorAll("button.excluir");
+    if (btnExcluirProduto.length > 0) {
+      btnExcluirProduto.forEach((btn, index) => {
         btn.addEventListener("click", async (event) => {
           const codigo_produto = event.target.offsetParent.id;
           const msg = `Deseja deletar o produto?\nCódigo do produto: ${codigo_produto}`;
@@ -75,6 +77,33 @@ const activateBtnsActions = (feedbackEl, spinnerLoad) => {
           }
         });
       });
+    }
+
+    const btnExcluirUsuarios = document.querySelectorAll(".excluir-usuarios");
+    if (btnExcluirUsuarios.length > 0) {
+      btnExcluirUsuarios.forEach(btn => {
+        btn.addEventListener("click", async (event) => {
+          const user_id = event.target.id;
+          const msg = `Deseja deletar este usuário?`;
+          if (confirm(msg)) {
+            try {
+              const delUser = await deletarUsuario(user_id);
+              if (delUser.api_message_error) {
+                throw delUser.api_message_error;
+              }
+              feedbackEl.innerHTML = "<span class='sucesso'>" + delUser.api_message + "</span>";
+              listarUsuarios();
+            } catch(err) {
+              console.log(err);
+              if (Array.isArray(err)) {
+                feedbackEl.innerHTML = "<span class='erro'>" + err[0] + " <br> " + err[1] + "</span>";
+              } else {
+                feedbackEl.innerHTML = "<span class='erro'>" + err + "</span>";
+              }
+            }
+          }
+        });
+      })
     }
 
   }, 500);

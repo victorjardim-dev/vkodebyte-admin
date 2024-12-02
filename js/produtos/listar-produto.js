@@ -5,7 +5,7 @@ const formatarData = (date) => new Date(date).toLocaleString().replace(", ", " Ã
 
 const criarProdutos = async (produtos) => {
   try {
-    const categoriesProducts = await listarCategorias(BASE_URL_API);
+    const categoriesProducts = await listarCategorias();
 
     if ( categoriesProducts.api_message_error ) {
       throw categoriesProducts;
@@ -65,7 +65,7 @@ const listarProdutos = async (feedbackEl, spinnerLoad) => {
     if (produtosEl.api_message_error) {
       feedbackEl.innerHTML = "<span class='erro'>" + produtosEl.api_message_error + "</span>";
     } else {
-      if (window.location.pathname !== "/cadastro.html" && window.localStorage.getItem("token")) {
+      if (window.location.pathname !== "/novo-produto.html" && window.localStorage.getItem("token")) {
         feedbackEl.appendChild(produtosEl);
       }
     }

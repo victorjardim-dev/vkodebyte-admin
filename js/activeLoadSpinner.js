@@ -14,14 +14,14 @@ const loadingSpinnerInit = (spinnerLoad) => {
       }
 
       if (
-        window.location.pathname === "/cadastro.html" ||
+        window.location.pathname === "/novo-produto.html" ||
         window.location.pathname === "/pedidos.html" ||
         window.location.pathname === "/usuarios.html" ||
-        window.location.pathname === "/editar.html" ||
+        window.location.pathname === "/editar-produto.html" ||
         window.location.pathname === "/categorias.html"
       ) {
         if (TOKEN) {
-          window.location.href = "/listagem.html";
+          window.location.href = "/listar-produtos.html";
         } else {
           window.location.href = "/";
         }

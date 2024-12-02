@@ -25,7 +25,7 @@ if (window.location.pathname !== "/" && window.location.pathname !== "/index.htm
 admin(feedbackEl, spinnerLoad);
 
 // Inicia Categorias
-categyInit(feedbackEl);
+categyInit(feedbackEl, spinnerLoad);
 
 // Inicia Produtos;
 produtosInit(feedbackEl, spinnerLoad);

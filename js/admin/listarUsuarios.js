@@ -14,8 +14,8 @@ const criarListaUsuarios = (userData) => {
           <span><strong>Criado por:</strong> ${users.created_by}</span>
         </div>
         <div>
-          <span class="btn-acoes" id="${users.id}">Editar</span>
-          <span class="btn-acoes" id="${users.id}">Excluir</span>
+          <span class="btn-acoes editar-usuarios" id="${users.id}">Editar</span>
+          <span class="btn-acoes excluir-usuarios" id="${users.id}">Excluir</span>
         </div>
       </li>
     `
