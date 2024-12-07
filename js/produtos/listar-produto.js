@@ -30,7 +30,7 @@ const criarProdutos = async (produtos) => {
           </figure>
           <div class="produto-infos">
             <p>Estoque: <strong>${product.stock}</strong></p>
-            <p>Valor Total: <strong>${ parseFloat(product.stock * product.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</strong></p>
+            <p>Valor em Estoque: <strong>${ parseFloat(product.stock * product.price).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</strong></p>
             <p>Status: <strong class="${product.product_status ? "disponivel" : "indisponivel"}">${product.product_status ? "Disponível" : "Indisponível"}</strong></p>
             <p>Categoria: <strong>${categoryName[0].category_name}</strong></p>
             <p>Criado por: <strong>${product.created_by}</strong></p>

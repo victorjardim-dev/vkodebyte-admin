@@ -51,7 +51,8 @@ const activateBtnsActions = (feedbackEl, spinnerLoad) => {
       btnExcluirCategoria.forEach((btn) => {
         btn.addEventListener("click", async (event) => {
           const codigo_category = event.target.id;
-          const msg = `Deseja deletar a categoria #${codigo_category} ?`;
+          const nomeCategoria = event.target.previousElementSibling.textContent;
+          const msg = `Deseja deletar a categoria "${nomeCategoria}"?`;
           if (confirm(msg)) {
             try {
               const delCategory = await deletarCategoria(codigo_category);
