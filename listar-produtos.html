@@ -30,8 +30,19 @@
 
     <main>
       <div class="infos">
-        <!-- <input type="text" name="pesquisar" id="pesquisar" placeholder="Procurar Produto"> -->
         <h1>Produtos</h1>
+        <div class="container-pesquisar-produto">
+          <h3>Pesquisar:</h3>
+          <div>
+            <input type="text" name="pesquisar" id="pesquisar">
+            <select name="tipoPesquisa" id="tipoPesquisa">
+              <option value="">Selecione o tipo de pesquisa</option>
+              <option value="nome">Nome do Produto</option>
+              <option value="ref">Referência</option>
+              <option value="categoria">Categoria</option>
+            </select>
+          </div>
+        </div>
         <div>
           <p>Produtos: <span class="total-produtos">0</span>/<span class="maximo-produtos">0</span></p>
           <a href="./novo-produto.html" class="btn-principal">Novo Produto</a>

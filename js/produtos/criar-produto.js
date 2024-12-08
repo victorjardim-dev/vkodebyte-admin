@@ -1,7 +1,8 @@
 import vkGetFetch from "../vkGetFetch.js";
 import activeNotify from "../active-notify.js";
+import getTotalProducts from "./total-produtos.js";
 
-const cadastrarProduto = async (dadosFormulario, spinnerLoad) => {
+const cadastrarProduto = async (dadosFormulario, spinnerLoad, maximoProdutos, totalProdutos) => {
   try {
     const responseData = await vkGetFetch("/produtos", "post", dadosFormulario);
 
@@ -10,6 +11,7 @@ const cadastrarProduto = async (dadosFormulario, spinnerLoad) => {
     }
 
     activeNotify(responseData.api_message, 1);
+    getTotalProducts(maximoProdutos, totalProdutos);
 
   } catch (err) {
     if (Array.isArray(err.api_message_error.errors)) {

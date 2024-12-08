@@ -4,7 +4,7 @@ import editarProduto from "./editar-produto.js";
 import pesquisar from "./pesquisar-produto.js";
 import listarCategorias from "../categorias/listar-categorias.js";
 
-const produtosInit = (feedbackEl, spinnerLoad) => {
+const produtosInit = (feedbackEl, spinnerLoad, maximoProdutos, totalProdutos) => {
   if (window.location.pathname === "/listar-produtos.html") {
     listarProdutos(feedbackEl, spinnerLoad);
   }
@@ -17,7 +17,7 @@ const produtosInit = (feedbackEl, spinnerLoad) => {
       event.preventDefault();
 
       const formData = new FormData(event.target);
-      cadastrarProduto(formData, spinnerLoad);
+      cadastrarProduto(formData, spinnerLoad, maximoProdutos, totalProdutos);
     });
   }
 

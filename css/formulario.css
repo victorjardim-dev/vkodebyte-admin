@@ -52,6 +52,7 @@
   display: inline-block;
 }
 
+input#pesquisar,
 #cadastroForm .campos-form input,
 #cadastroForm .campos-form textarea,
 #editarForm .campos-form input,
@@ -87,10 +88,35 @@ form input, form textarea {
   transition: .2s box-shadow;
 }
 
+input#pesquisar:hover,
 form input:hover, form textarea:hover {
   box-shadow: 0 0 4px 1px #76d;
 }
 
+input#pesquisar:focus,
 form input:focus, form textarea:focus {
   box-shadow: 0 0 2px 2px #76d;
+}
+
+input#pesquisar:disabled:hover {
+  box-shadow: 0 0 2px 2px transparent;
+}
+
+.container-pesquisar-produto {
+  display: flex;
+  max-width: 640px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.container-pesquisar-produto > div {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+
+.container-pesquisar-produto > div select {
+  padding: 8px;
 }

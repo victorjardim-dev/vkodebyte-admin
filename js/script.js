@@ -9,6 +9,7 @@ import pedidosInit from "./pedidos/pedidos-index.js";
 import getTotalProducts from "./produtos/total-produtos.js";
 import loadingSpinnerInit from "./activeLoadSpinner.js";
 import activateBtnsActions from "./activateBtnsActions.js";
+import initSearch from "./search.js";
 
 const feedbackEl = document.querySelector(".feedback");
 const maximoProdutos = document.querySelector(".maximo-produtos");
@@ -29,7 +30,7 @@ admin(spinnerLoad);
 categyInit(spinnerLoad);
 
 // Inicia Produtos;
-produtosInit(feedbackEl, spinnerLoad);
+produtosInit(feedbackEl, spinnerLoad, maximoProdutos, totalProdutos);
 
 // Inicia Ações dos Botões
 activateBtnsActions(feedbackEl, spinnerLoad);
@@ -39,6 +40,9 @@ pedidosInit(feedbackEl, spinnerLoad);
 
 // Ativar loadingSpinner nos links e botões
 loadingSpinnerInit(spinnerLoad);
+
+// Ativa a procuda de produto
+initSearch();
 
 const anoAtual = document.getElementById("ano-atual");
 anoAtual.innerHTML = new Date().getFullYear();
