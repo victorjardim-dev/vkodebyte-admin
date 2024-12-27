@@ -18,7 +18,9 @@ const adminInit = async (spinnerLoad) => {
   }
   
   if (bntLogout) {
-    bntLogout.addEventListener("click", logout);
+    bntLogout.addEventListener("click", () => {
+      logout(spinnerLoad);
+    });
   }
   
   if (window.location.pathname === "/painel.html") {
